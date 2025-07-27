@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albo Distribuciones - Soluciones en la Nube y Consumo Masivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+        }
+        .hero {
+            background-color: #0d47a1; /* Azul corporativo */
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #d32f2f; /* Rojo para resaltar */
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #b71c1c;
+        }
+        .section-heading {
+            color: #0d47a1;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .chatbot-button {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: #0d47a1;
+            color: white;
+            border-radius: 9999px;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        .chatbot-button:hover {
+            background-color: #082a5c;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.75rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #d32f2f;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header (Hero Section) -->
+    <header class="hero">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Se ha actualizado el logo para usar la imagen subida directamente al Canvas -->
+            <img src="/uploaded:image_66b023.png-7a22e1e2-0472-4807-8f9a-857db6c61411" alt="Albo Distribuciones Logo" class="mx-auto w-48 mb-6 rounded-lg">
+            <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">Distribución y soluciones en la nube para tu empresa</h1>
+            <p class="text-lg md:text-xl mb-8">Llevamos tus productos y servicios al siguiente nivel con logística, innovación y asesoramiento personalizado</p>
+            <a href="#contact" class="btn-primary inline-block">Solicitar una consulta</a>
+        </div>
+    </header>
+
+    <!-- Misión y Valores -->
+    <section id="mission-values" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="section-heading">Nuestra Misión y Valores</h2>
+            <img src="https://drive.google.com/uc?export=view&id=1Ebw2MNirPhj14DpPM8lJ-jXLiuDpLfhU" alt="Edificio moderno de Albo Distribuciones" class="w-full max-w-4xl mx-auto rounded-lg shadow-lg mb-8">
+            <p class="text-center text-lg max-w-3xl mx-auto leading-relaxed text-gray-700">
+                Albo Distribuciones es una empresa de distribución comprometida con la creación de valor para sus clientes y socios. Nos esforzamos por la excelencia, la transparencia y la innovación en cada paso de nuestras operaciones, construyendo relaciones duraderas basadas en la confianza y el crecimiento mutuo.
+            </p>
+        </div>
+    </section>
+
+    <!-- Capacidades y Servicios -->
+    <section id="services" class="bg-gray-200 py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="section-heading">Nuestras Capacidades y Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card">
+                    <i class="fas fa-truck-loading text-5xl text-blue-700 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Distribución de productos</h3>
+                    <p class="text-gray-600">Bebidas y productos de consumo masivo.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-box-open text-5xl text-blue-700 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Servicio logístico integral</h3>
+                    <p class="text-gray-600">Logística propia y tercerizada para mayor eficiencia.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-shipping-fast text-5xl text-blue-700 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Entrega rápida y segura</h3>
+                    <p class="text-gray-600">Garantizamos la llegada de tus productos en tiempo y forma.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-handshake text-5xl text-blue-700 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Asesoramiento personalizado</h3>
+                    <p class="text-gray-600">Expertos a tu disposición para optimizar tus estrategias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva imagen añadida aquí -->
+    <section class="py-12 px-4">
+        <div class="container mx-auto">
+            <img src="https://drive.google.com/uc?export=view&id=1WxhczQlVy7-6eAaTm_iW5PMSQ3lTi0S2" alt="Imagen decorativa de Albo Distribuciones" class="w-full max-w-6xl mx-auto rounded-lg shadow-lg">
+        </div>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <section id="products" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="section-heading">Nuestro Catálogo de Productos</h2>
+            <div class="flex justify-center mb-8 space-x-4 flex-wrap">
+                <button class="category-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full mb-2" data-category="all">Todos</button>
+                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full mb-2" data-category="bebidas">Bebidas</button>
+                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full mb-2" data-category="lacteos">Lácteos</button>
+                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full mb-2" data-category="fiambres-quesos">Fiambres y Quesos</button>
+                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full mb-2" data-category="cuidado-personal">Cuidado Personal</button>
+                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full mb-2" data-category="cuidado-hogar">Cuidado del Hogar</button>
+                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full mb-2" data-category="varios">Varios</button>
+            </div>
+            <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Los productos se cargarán dinámicamente aquí -->
+                <p class="col-span-full text-center text-gray-500">Cargando productos...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Testimonios de Clientes -->
+    <section id="testimonials" class="bg-blue-800 text-white py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="section-heading text-white">Lo que Dicen Nuestros Clientes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+                    <p class="italic mb-4">"Albo Distribuciones ha transformado nuestra cadena de suministro. Su eficiencia y compromiso son inigualables."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/60x60/cccccc/ffffff?text=Logo" alt="Logo Cliente 1" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold">Juan Pérez</p>
+                            <p class="text-sm text-gray-600">Gerente General, Empresa X</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white text-gray-800 rounded-lg p-6 shadow-lg">
+                    <p class="italic mb-4">"El asesoramiento personalizado de Albo fue clave para optimizar nuestras ventas de productos de consumo masivo."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/60x60/cccccc/ffffff?text=Logo" alt="Logo Cliente 2" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold">María Rodríguez</p>
+                            <p class="text-sm text-gray-600">Directora Comercial, Tienda Y</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Contacto / Consultas -->
+    <section id="contact" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="section-heading">Contáctanos y Solicita una Consulta</h2>
+            <div class="max-w-xl mx-auto bg-white rounded-lg p-8 shadow-lg">
+                <form id="contact-form">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                        <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                        <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Teléfono:</label>
+                        <input type="tel" id="phone" name="phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Mensaje:</label>
+                        <textarea id="message" name="message" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <button type="submit" class="btn-primary">Enviar Consulta</button>
+                    </div>
+                </form>
+                <div id="form-message" class="mt-4 text-center text-sm font-semibold hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Button (Float) -->
+    <div id="chatbot-button" class="chatbot-button">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <!-- Chatbot Modal -->
+    <div id="chatbot-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 class="text-2xl font-semibold mb-4 text-center text-blue-700">Chatbot de Albo</h3>
+            <p class="text-center text-gray-600 mb-6">¡Hola! Estoy aquí para ayudarte con tus consultas.</p>
+            <!-- Aquí iría el iframe o la integración directa del chatbot de n8n -->
+            <div class="w-full h-80 bg-gray-100 border border-gray-300 rounded-md flex items-center justify-center text-gray-500">
+                [Aquí se integraría el chatbot de n8n]
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Description Modal -->
+    <div id="product-description-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-product-description-modal">&times;</span>
+            <h3 class="text-2xl font-semibold mb-4 text-center text-blue-700" id="product-description-title"></h3>
+            <div id="product-description-content" class="text-gray-700 text-left">
+                <!-- La descripción generada se cargará aquí -->
+            </div>
+            <div id="product-description-loading" class="text-center mt-4">
+                <span class="loading-spinner"></span> Generando descripción...
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase SDK importaciones
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Configuración de Firebase (proporcionada por el entorno)
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        let userId = null;
+
+        // Autenticación de Firebase y obtención de userId
+        async function authenticateFirebase() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                userId = auth.currentUser?.uid || crypto.randomUUID();
+                console.log("Firebase autenticado. User ID:", userId);
+                // Cargar productos una vez autenticado
+                await loadProducts();
+            } catch (error) {
+                console.error("Error al autenticar con Firebase:", error);
+                // Si la autenticación falla, intentar cargar productos sin un userId específico, o mostrar un mensaje.
+                await loadProducts();
+            }
+        }
+
+        // Función para cargar productos desde Firestore
+        async function loadProducts() {
+            const productListDiv = document.getElementById('product-list');
+            productListDiv.innerHTML = '<p class="col-span-full text-center text-gray-500">Cargando productos...</p>';
+
+            try {
+                const productsRef = collection(db, `/artifacts/${appId}/public/data/products`);
+                const querySnapshot = await getDocs(productsRef);
+                const products = [];
+                querySnapshot.forEach((doc) => {
+                    products.push({ id: doc.id, ...doc.data() });
+                });
+                renderProducts(products);
+            } catch (error) {
+                console.error("Error al cargar productos:", error);
+                productListDiv.innerHTML = '<p class="col-span-full text-center text-red-500">Error al cargar los productos. Por favor, inténtalo de nuevo más tarde.</p>';
+            }
+        }
+
+        // Función para renderizar productos en la página
+        function renderProducts(productsToRender) {
+            const productListDiv = document.getElementById('product-list');
+            productListDiv.innerHTML = ''; // Limpiar productos existentes
+
+            if (productsToRender.length === 0) {
+                productListDiv.innerHTML = '<p class="col-span-full text-center text-gray-500">No hay productos disponibles en esta categoría.</p>';
+                return;
+            }
+
+            productsToRender.forEach(product => {
+                const productCard = `
+                    <div class="product-card card" data-category="${product.category || 'varios'}">
+                        <img src="${product.imageUrl || 'https://placehold.co/200x150/e0e0e0/333333?text=Producto'}" alt="${product.name}" class="w-full h-40 object-cover mb-4 rounded-md">
+                        <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-3">${product.description}</p>
+                        <p class="text-blue-700 font-bold text-lg mb-4">$${product.price ? product.price.toFixed(2) : 'N/A'}</p>
+                        <a href="#contact" class="btn-primary inline-block text-sm">Consultar</a>
+                        <button class="generate-description-btn btn-primary mt-2 inline-flex items-center justify-center text-sm"
+                                data-product-name="${product.name}"
+                                data-product-description="${product.description}">
+                            Generar Descripción ✨
+                        </button>
+                    </div>
+                `;
+                productListDiv.innerHTML += productCard;
+            });
+            // Attach event listeners to the new buttons after rendering
+            attachGenerateDescriptionListeners();
+        }
+
+        // Función para adjuntar escuchadores de eventos a los botones de "Generar Descripción"
+        function attachGenerateDescriptionListeners() {
+            document.querySelectorAll('.generate-description-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const productName = e.target.dataset.productName;
+                    const productDescription = e.target.dataset.productDescription;
+
+                    const modal = document.getElementById('product-description-modal');
+                    const modalTitle = document.getElementById('product-description-title');
+                    const modalContent = document.getElementById('product-description-content');
+                    const modalLoading = document.getElementById('product-description-loading');
+
+                    modalTitle.textContent = productName;
+                    modalContent.textContent = ''; // Limpiar contenido previo
+                    modal.style.display = 'flex';
+                    modalLoading.style.display = 'block'; // Mostrar spinner
+
+                    const prompt = `Genera una descripción de producto más detallada y atractiva para el siguiente artículo. Incluye sus beneficios clave y un tono de venta. El producto es: '${productName}'. Su descripción actual es: '${productDescription}'`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // API key will be provided by Canvas runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    let retries = 0;
+                    const maxRetries = 5;
+                    const baseDelay = 1000; // 1 second
+
+                    while (retries < maxRetries) {
+                        try {
+                            const response = await fetch(apiUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+
+                            if (!response.ok) {
+                                // Check for rate limiting or other recoverable errors
+                                if (response.status === 429 || response.status >= 500) {
+                                    const delay = Math.pow(2, retries) * baseDelay;
+                                    retries++;
+                                    console.warn(`Retry attempt ${retries} after ${delay}ms delay due to status ${response.status}`);
+                                    await new Promise(res => setTimeout(res, delay));
+                                    continue; // Retry the request
+                                }
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+
+                            const result = await response.json();
+                            if (result.candidates && result.candidates.length > 0 &&
+                                result.candidates[0].content && result.candidates[0].content.parts &&
+                                result.candidates[0].content.parts.length > 0) {
+                                const text = result.candidates[0].content.parts[0].text;
+                                modalContent.textContent = text;
+                                modalLoading.style.display = 'none'; // Ocultar spinner
+                                break; // Success, exit loop
+                            } else {
+                                modalContent.textContent = 'No se pudo generar una descripción. Inténtalo de nuevo.';
+                                modalLoading.style.display = 'none';
+                                break;
+                            }
+                        } catch (error) {
+                            console.error("Error al llamar a la API de Gemini:", error);
+                            modalContent.textContent = 'Hubo un error al generar la descripción. Inténtalo de nuevo.';
+                            modalLoading.style.display = 'none';
+                            break; // Exit loop on unrecoverable error
+                        }
+                    }
+
+                    if (retries === maxRetries) {
+                        modalContent.textContent = 'Demasiados intentos. No se pudo generar la descripción.';
+                        modalLoading.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+
+        // Simular la adición de productos a Firestore (solo para demostración inicial)
+        async function seedProducts() {
+            const productsCollection = collection(db, `/artifacts/${appId}/public/data/products`);
+            const existingProducts = await getDocs(productsCollection);
+            if (existingProducts.empty) {
+                console.log("No hay productos, añadiendo productos de ejemplo...");
+                const sampleProducts = [
+                    { name: "Agua Mineral x 1.5L", description: "Agua pura y refrescante para mantenerse hidratado.", price: 150.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Agua", category: "bebidas" },
+                    { name: "Leche Entera x 1L", description: "Leche fresca y nutritiva, ideal para toda la familia.", price: 200.50, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Leche", category: "lacteos" },
+                    { name: "Queso Cremoso x 500g", description: "Suave y delicioso queso cremoso, perfecto para tus comidas.", price: 450.75, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Queso", category: "fiambres-quesos" },
+                    { name: "Shampoo Reparador 400ml", description: "Fórmula avanzada para reparar el cabello dañado y fortalecerlo.", price: 280.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Shampoo", category: "cuidado-personal" },
+                    { name: "Detergente Líquido 750ml", description: "Poder de limpieza superior que elimina la grasa más difícil.", price: 180.25, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Detergente", category: "cuidado-hogar" },
+                    { name: "Gaseosa Cola 2.25L", description: "Bebida refrescante sabor cola, ideal para cualquier ocasión.", price: 220.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Gaseosa", category: "bebidas" },
+                    { name: "Yogur Frutilla x 125g", description: "Delicioso yogur con trozos de frutilla, una opción saludable y sabrosa.", price: 95.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Yogur", category: "lacteos" },
+                    { name: "Jamon Cocido Premium x 200g", description: "Fetas finas de jamón cocido de alta calidad, perfectas para sándwiches.", price: 320.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Jamon", category: "fiambres-quesos" },
+                    { name: "Pasta Dental Blanqueadora", description: "Para una sonrisa más brillante y una protección completa contra caries.", price: 120.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Pasta", category: "cuidado-personal" },
+                    { name: "Limpiador Multiuso 900ml", description: "Limpia y desinfecta todas las superficies, dejando un aroma fresco.", price: 160.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Limpiador", category: "cuidado-hogar" },
+                    { name: "Snacks Sabor Queso 100g", description: "Crujientes snacks con intenso sabor a queso, ideales para compartir.", price: 80.00, imageUrl: "https://placehold.co/200x150/e0e0e0/333333?text=Snacks", category: "varios" }
+                ];
+
+                for (const product of sampleProducts) {
+                    await addDoc(productsCollection, product);
+                }
+                console.log("Productos de ejemplo añadidos.");
+            } else {
+                console.log("Productos ya existen en Firestore.");
+            }
+        }
+
+
+        // Escuchadores de eventos para filtrar productos
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                // Reset active state for all buttons
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'text-white');
+                    btn.classList.add('bg-gray-300', 'hover:bg-gray-400', 'text-gray-800');
+                });
+
+                // Set active state for the clicked button
+                e.target.classList.remove('bg-gray-300', 'hover:bg-gray-400', 'text-gray-800');
+                e.target.classList.add('bg-blue-600', 'hover:bg-blue-700', 'text-white');
+
+                const category = e.target.dataset.category;
+                const productListDiv = document.getElementById('product-list');
+                productListDiv.innerHTML = '<p class="col-span-full text-center text-gray-500">Filtrando productos...</p>';
+
+                try {
+                    const productsRef = collection(db, `/artifacts/${appId}/public/data/products`);
+                    const querySnapshot = await getDocs(productsRef);
+                    const allProducts = [];
+                    querySnapshot.forEach((doc) => {
+                        allProducts.push({ id: doc.id, ...doc.data() });
+                    });
+
+                    let filteredProducts = allProducts;
+                    if (category !== 'all') {
+                        filteredProducts = allProducts.filter(product => product.category === category);
+                    }
+                    renderProducts(filteredProducts);
+                } catch (error) {
+                    console.error("Error al filtrar productos:", error);
+                    productListDiv.innerHTML = '<p class="col-span-full text-center text-red-500">Error al filtrar los productos.</p>';
+                }
+            });
+        });
+
+        // Manejo del formulario de contacto
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                message: form.message.value,
+                timestamp: new Date()
+            };
+            const formMessage = document.getElementById('form-message');
+            formMessage.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            formMessage.classList.add('text-gray-600');
+            formMessage.textContent = 'Enviando consulta...';
+
+            try {
+                // Guardar en Firestore
+                await addDoc(collection(db, `/artifacts/${appId}/users/${userId}/contact_messages`), formData);
+                formMessage.textContent = '¡Gracias por tu consulta! Nos pondremos en contacto contigo pronto.';
+                formMessage.classList.remove('text-gray-600');
+                formMessage.classList.add('text-green-600');
+                form.reset();
+
+                // Aquí iría la lógica para enviar el correo electrónico
+                // Esto requeriría una Firebase Function o un servicio de SMTP configurado.
+                // Ejemplo conceptual (no funcional sin backend):
+                // const response = await fetch('/send-email', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(formData)
+                // });
+                // if (!response.ok) throw new Error('Error al enviar el correo.');
+
+            } catch (error) {
+                console.error("Error al enviar la consulta:", error);
+                formMessage.textContent = 'Hubo un error al enviar tu consulta. Por favor, inténtalo de nuevo.';
+                formMessage.classList.remove('text-gray-600');
+                formMessage.classList.add('text-red-600');
+            } finally {
+                formMessage.classList.remove('hidden');
+            }
+        });
+
+        // Lógica del Chatbot Modal
+        const chatbotButton = document.getElementById('chatbot-button');
+        const chatbotModal = document.getElementById('chatbot-modal');
+        const closeChatbotButton = document.querySelector('#chatbot-modal .close-button');
+
+        chatbotButton.addEventListener('click', () => {
+            chatbotModal.style.display = 'flex';
+        });
+
+        closeChatbotButton.addEventListener('click', () => {
+            chatbotModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === chatbotModal) {
+                chatbotModal.style.display = 'none';
+            }
+        });
+
+        // Lógica del Product Description Modal
+        const productDescriptionModal = document.getElementById('product-description-modal');
+        const closeProductDescriptionModalButton = document.getElementById('close-product-description-modal');
+
+        closeProductDescriptionModalButton.addEventListener('click', () => {
+            productDescriptionModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === productDescriptionModal) {
+                productDescriptionModal.style.display = 'none';
+            }
+        });
+
+        // Inicializar la autenticación de Firebase y cargar productos al cargar la ventana
+        window.onload = async () => {
+             // Autenticar Firebase
+            await authenticateFirebase();
+             // Añadir productos de ejemplo si no existen (solo para el primer uso/demostración)
+            await seedProducts();
+            // Asegurarse de que los productos se carguen después de la autenticación y el seed
+            await loadProducts();
+        };
+
+    </script>
+</body>
+</html>

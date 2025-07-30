@@ -174,11 +174,139 @@
             margin-top: 1rem;
         }
         
-        /* Personalización del chat widget de N8N */
+        /* Personalización avanzada del chat widget de N8N */
         .n8n-chat {
             --chat-color-primary: #0d47a1;
             --chat-color-secondary: #1976d2;
             --chat-color-accent: #d32f2f;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Botón del chat personalizado */
+        .n8n-chat-widget-launcher {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
+            box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4) !important;
+            border: 3px solid #ffffff !important;
+            animation: chatPulse 2s infinite;
+        }
+        
+        .n8n-chat-widget-launcher:hover {
+            background: linear-gradient(135deg, #082a5c 0%, #0d47a1 100%) !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 12px 30px rgba(13, 71, 161, 0.6) !important;
+        }
+        
+        @keyframes chatPulse {
+            0% {
+                box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4), 0 0 0 0 rgba(13, 71, 161, 0.1);
+            }
+            50% {
+                box-shadow: 0 8px 25px rgba(13, 71, 161, 0.6), 0 0 0 15px rgba(13, 71, 161, 0.1);
+            }
+            100% {
+                box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4), 0 0 0 0 rgba(13, 71, 161, 0.1);
+            }
+        }
+        
+        /* Header del chat */
+        .n8n-chat-widget-header {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
+            border-radius: 16px 16px 0 0 !important;
+            padding: 1.2rem !important;
+        }
+        
+        /* Ventana del chat */
+        .n8n-chat-widget-window {
+            border-radius: 16px !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+            border: 2px solid #e3f2fd !important;
+            overflow: hidden !important;
+        }
+        
+        /* Mensajes del usuario (estilo Albo) */
+        .n8n-chat-message.user {
+            background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%) !important;
+            color: white !important;
+            border-radius: 18px 18px 4px 18px !important;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3) !important;
+        }
+        
+        /* Mensajes del bot */
+        .n8n-chat-message.bot {
+            background: #f8f9fa !important;
+            color: #333333 !important;
+            border-radius: 18px 18px 18px 4px !important;
+            border-left: 4px solid #0d47a1 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* Input del chat */
+        .n8n-chat-widget-input input {
+            border-radius: 25px !important;
+            border: 2px solid #e0e0e0 !important;
+            padding: 12px 20px !important;
+            font-family: 'Inter', sans-serif !important;
+            transition: border-color 0.3s ease !important;
+        }
+        
+        .n8n-chat-widget-input input:focus {
+            border-color: #0d47a1 !important;
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1) !important;
+        }
+        
+        /* Botón de enviar */
+        .n8n-chat-widget-input button {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
+            border-radius: 50% !important;
+            border: none !important;
+            padding: 12px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .n8n-chat-widget-input button:hover {
+            background: linear-gradient(135deg, #082a5c 0%, #0d47a1 100%) !important;
+            transform: scale(1.1) !important;
+        }
+        
+        /* Scrollbar personalizada */
+        .n8n-chat-widget-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .n8n-chat-widget-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .n8n-chat-widget-messages::-webkit-scrollbar-thumb {
+            background: #0d47a1;
+            border-radius: 3px;
+        }
+        
+        .n8n-chat-widget-messages::-webkit-scrollbar-thumb:hover {
+            background: #082a5c;
+        }
+        
+        /* Efecto de escritura */
+        .n8n-chat-typing-indicator {
+            color: #0d47a1 !important;
+        }
+        
+        /* Responsive del chat */
+        @media (max-width: 768px) {
+            .n8n-chat-widget-window {
+                width: 95vw !important;
+                height: 80vh !important;
+                border-radius: 12px !important;
+            }
+            
+            .n8n-chat-widget-launcher {
+                width: 60px !important;
+                height: 60px !important;
+                bottom: 20px !important;
+                right: 20px !important;
+            }
         }
         
         @media (max-width: 768px) {
@@ -486,16 +614,79 @@
 
         createChat({
             webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5a1b-47c2-b32e-054e1cd872cd/chat',
-            chatTitle: 'Asistente Virtual Albo',
-            chatDescription: 'Pregúntame sobre nuestros productos y servicios',
-            chatInputPlaceholder: 'Escribe tu mensaje aquí...',
-            chatButtonText: 'Iniciar chat',
-            allowedDomains: ['*'], // Permite el chat en cualquier dominio durante desarrollo
+            
+            // Configuración de textos en español
+            title: 'Asistente Virtual Albo',
+            subtitle: 'Estamos aquí para ayudarte 24/7',
+            footer: '',
+            
+            // Configuración de mensajes
+            getStarted: 'Iniciar conversación',
+            inputPlaceholder: 'Escribe tu mensaje aquí...',
+            
+            // Configuración de la interfaz
+            initialMessages: [
+                'Hola! 👋',
+                'Soy el asistente virtual de Albo Distribuciones. ¿En qué puedo ayudarte hoy?'
+            ],
+            
+            // Tema personalizado con colores Albo
             theme: {
-                primaryColor: '#0d47a1',
-                secondaryColor: '#1976d2',
-                accentColor: '#d32f2f'
-            }
+                // Colores principales
+                primaryColor: '#0d47a1',      // Azul principal Albo
+                secondaryColor: '#1976d2',    // Azul secundario
+                textColor: '#333333',         // Texto principal
+                
+                // Colores del chat
+                chatWindow: {
+                    backgroundColor: '#ffffff',
+                    textColor: '#333333'
+                },
+                
+                // Botón del chat
+                launcher: {
+                    backgroundColor: '#0d47a1',
+                    textColor: '#ffffff'
+                },
+                
+                // Header del chat
+                header: {
+                    backgroundColor: '#0d47a1',
+                    textColor: '#ffffff'
+                },
+                
+                // Mensajes del usuario
+                userMessage: {
+                    backgroundColor: '#d32f2f',  // Rojo Albo
+                    textColor: '#ffffff'
+                },
+                
+                // Mensajes del bot
+                botMessage: {
+                    backgroundColor: '#f5f5f5',
+                    textColor: '#333333',
+                    borderColor: '#e0e0e0'
+                },
+                
+                // Input del usuario
+                input: {
+                    backgroundColor: '#ffffff',
+                    textColor: '#333333',
+                    borderColor: '#e0e0e0'
+                }
+            },
+            
+            // Configuración adicional
+            chatSessionKey: 'albo-chat-session',
+            defaultHeight: 600,
+            defaultWidth: 400,
+            showWelcomeScreen: true,
+            
+            // Posición del botón
+            position: 'bottom-right',
+            
+            // Configuración de dominio
+            allowedOrigins: ['*']
         });
     </script>
 

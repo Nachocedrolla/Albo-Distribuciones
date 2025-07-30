@@ -641,58 +641,14 @@
             }
         });
 
-        // --- INICIO DEL CAMBIO: LÓGICA PARA LA COMUNICACIÓN DEL CHAT ---
-        const chatForm = document.getElementById('chat-form');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
+       < link  href =" https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css " rel =" hoja de estilos " /> 
+< script  type =" módulo " > 
+	importar  {  createChat  }  desde  'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js' ;
 
-        // IMPORTANTE: URL de tu webhook de n8n
-        const webhookUrl = 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5a1b-47c2-b32e-054e1cd872cd/chat';
-
-        chatForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const userInput = chatInput.value.trim();
-            if (!userInput) return;
-
-            addChatMessage(userInput, 'user');
-            chatInput.value = '';
-
-            const thinkingIndicator = addChatMessage('...', 'bot');
-
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userInput }),
-                });
-
-                if (!response.ok) throw new Error(`Error: ${response.status}`);
-
-                const botData = await response.json();
-                const botResponse = botData.reply || 'No he recibido una respuesta válida.';
-                
-                thinkingIndicator.textContent = botResponse;
-
-            } catch (error) {
-                console.error('Error al contactar al webhook:', error);
-                thinkingIndicator.textContent = 'Lo siento, hubo un error de conexión.';
-            }
-        });
-
-        function addChatMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}-message`;
-            messageDiv.textContent = text;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            return messageDiv;
-        }
-        // --- FIN DEL CAMBIO ---
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProducts();
-        });
+	createChat ( { 
+		webhookUrl : 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5a1b-47c2-b32e-054e1cd872cd/chat' 
+	} ) ; 
+</ script >
     </script>
 
 </body>

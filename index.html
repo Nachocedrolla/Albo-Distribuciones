@@ -159,26 +159,30 @@
             padding: 0;
             border-radius: 1rem;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px; /* Ajustado para chat */
             max-height: 80vh;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            position: relative;
+            display: flex; /* Añadido */
+            flex-direction: column; /* Añadido */
             overflow: hidden;
         }
         
         .modal-header {
             background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 1rem 1.5rem; /* Ajustado */
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0; /* Añadido */
         }
         
         .modal-body {
-            padding: 2rem;
-            max-height: 60vh;
-            overflow-y: auto;
+            padding: 0; /* Limpiado para controlar desde adentro */
+            flex-grow: 1; /* Añadido */
+            display: flex; /* Añadido */
+            flex-direction: column; /* Añadido */
+            overflow: hidden; /* Añadido */
         }
         
         .close-button {
@@ -194,6 +198,42 @@
         .close-button:hover {
             opacity: 0.7;
         }
+
+        /* --- ESTILOS PARA LA INTERFAZ DEL CHAT --- */
+        #chat-messages {
+            flex-grow: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .message {
+            padding: 0.75rem 1.25rem;
+            border-radius: 1.25rem;
+            max-width: 85%;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background-color: #d32f2f; /* Rojo primario del sitio */
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.25rem;
+        }
+        .bot-message {
+            background-color: #f1f5f9; /* Gris suave de Tailwind */
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.25rem;
+        }
+        #chat-form {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            background-color: #f8f9fa;
+        }
+        /* --- FIN DE ESTILOS DEL CHAT --- */
         
         .category-btn {
             transition: all 0.3s ease;
@@ -231,13 +271,6 @@
             height: 100%;
             object-fit: cover;
             border-radius: 0.75rem;
-        }
-        
-        .chatbot-iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-            border-radius: 0.5rem;
         }
         
         .add-product-form {
@@ -289,7 +322,6 @@
 </head>
 <body class="bg-gray-50">
 
-    <!-- Header (Hero Section) -->
     <header class="hero">
         <div class="container mx-auto px-4 py-8 relative z-10">
             <div class="image-container w-48 mx-auto mb-6">
@@ -301,7 +333,6 @@
         </div>
     </header>
 
-    <!-- Misión y Valores -->
     <section id="mission-values" class="py-20 px-4">
         <div class="container mx-auto">
             <h2 class="section-heading">Nuestra Misión y Valores</h2>
@@ -314,7 +345,6 @@
         </div>
     </section>
 
-    <!-- Capacidades y Servicios -->
     <section id="services" class="bg-white py-20 px-4">
         <div class="container mx-auto">
             <h2 class="section-heading">Nuestras Capacidades y Servicios</h2>
@@ -343,12 +373,10 @@
         </div>
     </section>
 
-    <!-- Catálogo de Productos -->
     <section id="products" class="py-20 px-4 bg-white">
         <div class="container mx-auto">
             <h2 class="section-heading">Nuestro Catálogo de Productos</h2>
             
-            <!-- Administrador de productos -->
             <div class="max-w-4xl mx-auto mb-12">
                 <button id="toggle-admin" class="btn-secondary mb-4">
                     <i class="fas fa-plus mr-2"></i>Agregar Producto
@@ -394,7 +422,6 @@
                 </div>
             </div>
             
-            <!-- Filtros de categorías -->
             <div class="flex justify-center mb-8 space-x-4 flex-wrap">
                 <button class="category-btn active bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full mb-2" data-category="all">
                     Todos
@@ -419,14 +446,12 @@
                 </button>
             </div>
             
-            <!-- Lista de productos -->
             <div id="product-list" class="product-grid">
                 <p class="col-span-full text-center text-gray-500">Cargando productos...</p>
             </div>
         </div>
     </section>
 
-    <!-- Formulario de Contacto -->
     <section id="contact" class="py-20 px-4 bg-gray-50">
         <div class="container mx-auto">
             <h2 class="section-heading">Contáctanos y Solicita una Consulta</h2>
@@ -457,27 +482,28 @@
         </div>
     </section>
 
-    <!-- Chatbot Button -->
     <div id="chatbot-button" class="chatbot-button" title="Hablar con nuestro asistente virtual">
         <i class="fas fa-comment-dots"></i>
     </div>
 
-    <!-- Chatbot Modal -->
     <div id="chatbot-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="text-xl font-semibold">Asistente Virtual Albo</h3>
                 <button class="close-button">&times;</button>
             </div>
-            <div class="modal-body p-0">
-                <!-- Iframe del chatbot n8n -->
-                <iframe 
-                    src="https://primary-production-e953.up.railway.app/webhook/alboasistente"
-                    class="chatbot-iframe"
-                    title="Chatbot Albo Distribuciones">
-                </iframe>
+            <div class="modal-body">
+                <div id="chat-messages">
+                    <div class="message bot-message">Hola, ¿en qué puedo ayudarte hoy?</div>
+                </div>
+                <form id="chat-form">
+                    <input id="chat-input" type="text" class="form-input" placeholder="Escribe tu mensaje..." autocomplete="off">
+                    <button id="send-button" type="submit" class="btn-secondary ml-3" style="width: 50px; height: 50px; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
             </div>
-        </div>
+            </div>
     </div>
 
     <script>
@@ -598,7 +624,7 @@
             }, 2000);
         });
 
-        // Event listeners para chatbot
+        // Event listeners para chatbot modal (apertura y cierre)
         document.getElementById('chatbot-button').addEventListener('click', () => {
             document.getElementById('chatbot-modal').style.display = 'flex';
         });
@@ -614,6 +640,54 @@
                 event.target.style.display = 'none';
             }
         });
+
+        // --- INICIO DEL CAMBIO: LÓGICA PARA LA COMUNICACIÓN DEL CHAT ---
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        // IMPORTANTE: URL de tu webhook de n8n
+        const webhookUrl = 'https://primary-production-e953.up.railway.app/webhook/alboasistente';
+
+        chatForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = chatInput.value.trim();
+            if (!userInput) return;
+
+            addChatMessage(userInput, 'user');
+            chatInput.value = '';
+
+            const thinkingIndicator = addChatMessage('...', 'bot');
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userInput }),
+                });
+
+                if (!response.ok) throw new Error(`Error: ${response.status}`);
+
+                const botData = await response.json();
+                const botResponse = botData.reply || 'No he recibido una respuesta válida.';
+                
+                thinkingIndicator.textContent = botResponse;
+
+            } catch (error) {
+                console.error('Error al contactar al webhook:', error);
+                thinkingIndicator.textContent = 'Lo siento, hubo un error de conexión.';
+            }
+        });
+
+        function addChatMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageDiv;
+        }
+        // --- FIN DEL CAMBIO ---
 
         // Inicializar
         document.addEventListener('DOMContentLoaded', () => {

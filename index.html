@@ -1363,7 +1363,7 @@ ${cart.map(item => `• ${item.name} (x${item.quantity}) - ${(item.price * item.
                 addMessageToChat(checkoutMessage, 'user');
                 
                 // Send to n8n if configured
-                if (CHATBOT_CONFIG.webhookUrl !== 'https://your-n8n-instance.com/webhook/chatbot') {
+                if (CHATBOT_CONFIG.webhookUrl !== 'webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5afb-47c2-b32e-054e1cd872cdfchat'') {
                     sendMessage();
                 }
             }, 500);
@@ -2054,3 +2054,4 @@ Por favor procesa este pedido.`;
     </script>
 </body>
 </html>
+

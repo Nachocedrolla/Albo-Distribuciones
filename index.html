@@ -3,694 +3,1060 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albo Distribuciones - Soluciones en la Nube y Consumo Masivo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <!-- N8N Chat Widget Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-    
+    <title>Albo Distribuciones - Distribución y Logística de Vanguardia</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
-        
-        .hero {
-            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
-            color: white;
-            padding: 4rem 1rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
-            color: white;
-            padding: 0.875rem 2.5rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
-            transform: translateY(0);
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
-            transform: translateY(-2px);
-        }
-        
-        .section-heading {
-            color: #0d47a1;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        .section-heading::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
-            border-radius: 2px;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        .product-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .category-btn {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .category-btn.active {
-            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
-            color: white !important;
-            border-color: #0d47a1;
-            transform: scale(1.05);
-        }
-        
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .image-container {
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
             width: 100%;
-            height: 200px;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            margin: 0 auto 1rem;
-            background: #f5f5f5;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
-        
-        .centered-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 0.75rem;
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .add-product-form {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23a)"/><circle cx="800" cy="400" r="100" fill="url(%23a)"/><circle cx="400" cy="800" r="120" fill="url(%23a)"/></svg>');
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 5rem 2rem;
+        }
+
+        .product-filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             margin-bottom: 2rem;
         }
-        
-        .form-input {
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
             width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #16a085;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
             padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
         }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: #0d47a1;
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
         }
-        
-        .success-message {
-            background: #d4edda;
-            color: #155724;
+
+        /* Coverage Section */
+        .coverage {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .coverage-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .coverage-map {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Success Stories */
+        .success-stories {
+            padding: 5rem 2rem;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .story-results {
+            display: flex;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .result-metric {
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(102, 126, 234, 0.6); }
+            100% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #c3e6cb;
-            margin-top: 1rem;
+            border-bottom: 1px solid #f1f5f9;
         }
-        
-        /* Personalización avanzada del chat widget de N8N */
-        .n8n-chat {
-            --chat-color-primary: #0d47a1;
-            --chat-color-secondary: #1976d2;
-            --chat-color-accent: #d32f2f;
-            font-family: 'Inter', sans-serif !important;
+
+        .cart-total {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
-        
-        /* Botón del chat personalizado */
-        .n8n-chat-widget-launcher {
-            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
-            box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4) !important;
-            border: 3px solid #ffffff !important;
-            animation: chatPulse 2s infinite;
+
+        /* Footer */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 3rem 2rem 1rem;
         }
-        
-        .n8n-chat-widget-launcher:hover {
-            background: linear-gradient(135deg, #082a5c 0%, #0d47a1 100%) !important;
-            transform: scale(1.1) !important;
-            box-shadow: 0 12px 30px rgba(13, 71, 161, 0.6) !important;
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
-        
-        @keyframes chatPulse {
-            0% {
-                box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4), 0 0 0 0 rgba(13, 71, 161, 0.1);
-            }
-            50% {
-                box-shadow: 0 8px 25px rgba(13, 71, 161, 0.6), 0 0 0 15px rgba(13, 71, 161, 0.1);
-            }
-            100% {
-                box-shadow: 0 8px 25px rgba(13, 71, 161, 0.4), 0 0 0 0 rgba(13, 71, 161, 0.1);
-            }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
         }
-        
-        /* Header del chat */
-        .n8n-chat-widget-header {
-            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
-            border-radius: 16px 16px 0 0 !important;
-            padding: 1.2rem !important;
+
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
-        
-        /* Ventana del chat */
-        .n8n-chat-widget-window {
-            border-radius: 16px !important;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
-            border: 2px solid #e3f2fd !important;
-            overflow: hidden !important;
+
+        .footer-section a:hover {
+            color: white;
         }
-        
-        /* Mensajes del usuario (estilo Albo) */
-        .n8n-chat-message.user {
-            background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%) !important;
-            color: white !important;
-            border-radius: 18px 18px 4px 18px !important;
-            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3) !important;
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #2d3748;
+            color: #cbd5e0;
         }
-        
-        /* Mensajes del bot */
-        .n8n-chat-message.bot {
-            background: #f8f9fa !important;
-            color: #333333 !important;
-            border-radius: 18px 18px 18px 4px !important;
-            border-left: 4px solid #0d47a1 !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        /* Input del chat */
-        .n8n-chat-widget-input input {
-            border-radius: 25px !important;
-            border: 2px solid #e0e0e0 !important;
-            padding: 12px 20px !important;
-            font-family: 'Inter', sans-serif !important;
-            transition: border-color 0.3s ease !important;
-        }
-        
-        .n8n-chat-widget-input input:focus {
-            border-color: #0d47a1 !important;
-            outline: none !important;
-            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1) !important;
-        }
-        
-        /* Botón de enviar */
-        .n8n-chat-widget-input button {
-            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%) !important;
-            border-radius: 50% !important;
-            border: none !important;
-            padding: 12px !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .n8n-chat-widget-input button:hover {
-            background: linear-gradient(135deg, #082a5c 0%, #0d47a1 100%) !important;
-            transform: scale(1.1) !important;
-        }
-        
-        /* Scrollbar personalizada */
-        .n8n-chat-widget-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .n8n-chat-widget-messages::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 3px;
-        }
-        
-        .n8n-chat-widget-messages::-webkit-scrollbar-thumb {
-            background: #0d47a1;
-            border-radius: 3px;
-        }
-        
-        .n8n-chat-widget-messages::-webkit-scrollbar-thumb:hover {
-            background: #082a5c;
-        }
-        
-        /* Efecto de escritura */
-        .n8n-chat-typing-indicator {
-            color: #0d47a1 !important;
-        }
-        
-        /* Responsive del chat */
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .n8n-chat-widget-window {
-                width: 95vw !important;
-                height: 80vh !important;
-                border-radius: 12px !important;
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            
-            .n8n-chat-widget-launcher {
-                width: 60px !important;
-                height: 60px !important;
-                bottom: 20px !important;
-                right: 20px !important;
+
+            .nav-links {
+                display: none;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .section-heading {
-                font-size: 2rem;
+
+            .coverage-content {
+                grid-template-columns: 1fr;
             }
-            
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1rem;
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-
-    <header class="hero">
-        <div class="container mx-auto px-4 py-8 relative z-10">
-            <div class="image-container w-48 mx-auto mb-6">
-                <img src="Logo albo 2.jpg" alt="Logo Albo Distribuciones" class="centered-image">
-            </div>
-            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">Distribución y soluciones en la nube para tu empresa</h1>
-            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">Llevamos tus productos y servicios al siguiente nivel con logística, innovación y asesoramiento personalizado</p>
-            <a href="#contact" class="btn-primary inline-block">Solicitar una consulta</a>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Albo Distribuciones</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#productos">Catálogo</a></li>
+                <li><a href="#cobertura">Cobertura</a></li>
+                <li><a href="#casos">Casos de Éxito</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <button class="cart-btn" onclick="toggleCart()">
+                🛒 Carrito
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <section id="mission-values" class="py-20 px-4">
-        <div class="container mx-auto">
-            <h2 class="section-heading">Nuestra Misión y Valores</h2>
-            <div class="image-container max-w-4xl mx-auto mb-8">
-                <img src="https://drive.google.com/uc?export=view&id=1Ebw2MNirPhj14DpPM8lJ-jXLiuDpLfhU" alt="Edificio moderno de Albo Distribuciones" class="centered-image shadow-2xl">
-            </div>
-            <p class="text-center text-lg max-w-4xl mx-auto leading-relaxed text-gray-700">
-                Albo Distribuciones es una empresa de distribución comprometida con la creación de valor para sus clientes y socios. Nos esforzamos por la excelencia, la transparencia y la innovación en cada paso de nuestras operaciones, construyendo relaciones duraderas basadas en la confianza y el crecimiento mutuo.
-            </p>
-        </div>
-    </section>
-
-    <section id="services" class="bg-white py-20 px-4">
-        <div class="container mx-auto">
-            <h2 class="section-heading">Nuestras Capacidades y Servicios</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="card">
-                    <i class="fas fa-truck-loading text-6xl text-blue-700 mb-6"></i>
-                    <h3 class="text-xl font-semibold mb-4">Distribución de productos</h3>
-                    <p class="text-gray-600">Bebidas y productos de consumo masivo con cobertura nacional.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-box-open text-6xl text-blue-700 mb-6"></i>
-                    <h3 class="text-xl font-semibold mb-4">Servicio logístico integral</h3>
-                    <p class="text-gray-600">Logística propia y tercerizada para máxima eficiencia operativa.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-shipping-fast text-6xl text-blue-700 mb-6"></i>
-                    <h3 class="text-xl font-semibold mb-4">Entrega rápida y segura</h3>
-                    <p class="text-gray-600">Garantizamos la llegada de tus productos en tiempo y forma.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-handshake text-6xl text-blue-700 mb-6"></i>
-                    <h3 class="text-xl font-semibold mb-4">Asesoramiento personalizado</h3>
-                    <p class="text-gray-600">Expertos a tu disposición para optimizar tus estrategias comerciales.</p>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Distribución de Vanguardia</h1>
+            <p>Llevamos tus productos al siguiente nivel con tecnología, logística inteligente y soluciones personalizadas que impulsan tu crecimiento</p>
+            <div class="cta-buttons">
+                <a href="#productos" class="btn btn-primary">Ver Catálogo</a>
+                <a href="#contacto" class="btn btn-secondary">Hablar con Experto</a>
             </div>
         </div>
     </section>
 
-    <section id="products" class="py-20 px-4 bg-white">
-        <div class="container mx-auto">
-            <h2 class="section-heading">Nuestro Catálogo de Productos</h2>
-            
-            <div class="max-w-4xl mx-auto mb-12">
-                <button id="toggle-admin" class="btn-secondary mb-4">
-                    <i class="fas fa-plus mr-2"></i>Agregar Producto
-                </button>
-                
-                <div id="admin-panel" class="add-product-form hidden">
-                    <h3 class="text-xl font-semibold mb-4">Agregar Nuevo Producto</h3>
-                    <form id="add-product-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Nombre del Producto</label>
-                            <input type="text" name="name" class="form-input" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Precio</label>
-                            <input type="number" name="price" step="0.01" class="form-input" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Categoría</label>
-                            <select name="category" class="form-input" required>
-                                <option value="bebidas">Bebidas</option>
-                                <option value="lacteos">Lácteos</option>
-                                <option value="fiambres-quesos">Fiambres y Quesos</option>
-                                <option value="cuidado-personal">Cuidado Personal</option>
-                                <option value="cuidado-hogar">Cuidado del Hogar</option>
-                                <option value="varios">Varios</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">URL de Imagen</label>
-                            <input type="url" name="imageUrl" class="form-input" placeholder="https://ejemplo.com/imagen.jpg">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-medium mb-2">Descripción</label>
-                            <textarea name="description" class="form-input" rows="3" required></textarea>
-                        </div>
-                        <div class="md:col-span-2">
-                            <button type="submit" class="btn-primary">
-                                <i class="fas fa-save mr-2"></i>Guardar Producto
-                            </button>
-                        </div>
-                    </form>
-                    <div id="add-product-message"></div>
+    <!-- Services Section -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Soluciones integrales para hacer crecer tu negocio</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚛</div>
+                    <h3>Logística Avanzada</h3>
+                    <p>Red de distribución propia y tercerizada con tecnología de tracking en tiempo real y optimización de rutas.</p>
                 </div>
-            </div>
-            
-            <div class="flex justify-center mb-8 space-x-4 flex-wrap">
-                <button class="category-btn active bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full mb-2" data-category="all">
-                    Todos
-                </button>
-                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-full mb-2" data-category="bebidas">
-                    Bebidas
-                </button>
-                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-full mb-2" data-category="lacteos">
-                    Lácteos
-                </button>
-                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-full mb-2" data-category="fiambres-quesos">
-                    Fiambres y Quesos
-                </button>
-                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-full mb-2" data-category="cuidado-personal">
-                    Cuidado Personal
-                </button>
-                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-full mb-2" data-category="cuidado-hogar">
-                    Cuidado del Hogar
-                </button>
-                <button class="category-btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-6 rounded-full mb-2" data-category="varios">
-                    Varios
-                </button>
-            </div>
-            
-            <div id="product-list" class="product-grid">
-                <p class="col-span-full text-center text-gray-500">Cargando productos...</p>
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3>Productos Premium</h3>
+                    <p>Bebidas y productos de consumo masivo seleccionados con los más altos estándares de calidad.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Asesoría Comercial</h3>
+                    <p>Expertos dedicados que optimizan tus estrategias de ventas y posicionamiento en el mercado.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Analytics & Reportes</h3>
+                    <p>Dashboard inteligente con métricas de ventas, inventario y performance en tiempo real.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Garantía Total</h3>
+                    <p>Aseguramos la entrega perfecta de tus productos con seguro integral y soporte 24/7.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Cobertura Nacional</h3>
+                    <p>Llegamos a todo el territorio argentino con tiempos de entrega optimizados.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-20 px-4 bg-gray-50">
-        <div class="container mx-auto">
-            <h2 class="section-heading">Contáctanos y Solicita una Consulta</h2>
-            <div class="max-w-2xl mx-auto bg-white rounded-2xl p-8 shadow-2xl">
-                <form id="contact-form">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Nombre completo:</label>
-                            <input type="text" id="name" name="name" class="form-input" required>
+    <!-- Products Section -->
+    <section class="products" id="productos">
+        <div class="container">
+            <h2 class="section-title">Catálogo de Productos</h2>
+            <p class="section-subtitle">Descubre nuestra selección premium de productos</p>
+            
+            <div class="product-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="bebidas">Bebidas</button>
+                <button class="filter-btn" data-filter="snacks">Snacks</button>
+                <button class="filter-btn" data-filter="lacteos">Lácteos</button>
+                <button class="filter-btn" data-filter="limpieza">Limpieza</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargan dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Coverage Section -->
+    <section class="coverage" id="cobertura">
+        <div class="container">
+            <div class="coverage-content">
+                <div>
+                    <h2 class="section-title" style="text-align: left;">Cobertura Nacional</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">Llegamos a todo el territorio argentino con nuestra red logística optimizada</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">24</div>
+                            <div>Provincias</div>
                         </div>
-                        <div>
-                            <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email:</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
+                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">1200+</div>
+                            <div>Ciudades</div>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">48h</div>
+                            <div>Entrega Máx.</div>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">99.8%</div>
+                            <div>Puntualidad</div>
                         </div>
                     </div>
-                    <div class="mb-6">
-                        <label for="message" class="block text-gray-700 text-sm font-semibold mb-2">Mensaje:</label>
-                        <textarea id="message" name="message" rows="5" class="form-input" required placeholder="Cuéntanos sobre tu proyecto o consulta..."></textarea>
+
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.5rem;">✅ AMBA y GBA - Entrega mismo día</li>
+                        <li style="margin-bottom: 0.5rem;">✅ Interior - Entrega 24-48hs</li>
+                        <li style="margin-bottom: 0.5rem;">✅ Patagonia - Entrega 48-72hs</li>
+                        <li style="margin-bottom: 0.5rem;">✅ Tracking en tiempo real</li>
+                    </ul>
+                </div>
+                <div class="coverage-map">
+                    <div class="map-placeholder">
+                        🗺️ Mapa Interactivo de Cobertura
+                        <br>
+                        <small>(Próximamente mapa detallado)</small>
                     </div>
-                    <div class="flex items-center justify-center">
-                        <button type="submit" class="btn-primary">
-                            <i class="fas fa-paper-plane mr-2"></i>Enviar Consulta
-                        </button>
-                    </div>
-                </form>
-                <div id="form-message" class="mt-6 text-center text-sm font-semibold hidden"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Scripts principales -->
+    <!-- Success Stories -->
+    <section class="success-stories" id="casos">
+        <div class="container">
+            <h2 class="section-title">Casos de Éxito</h2>
+            <p class="section-subtitle">Historias reales de crecimiento junto a nuestros clientes</p>
+            
+            <div class="stories-grid">
+                <div class="story-card">
+                    <h3>SuperMax Córdoba</h3>
+                    <p>Cadena de supermercados que triplicó su rotación de bebidas con nuestro sistema de reposición inteligente.</p>
+                    <div class="story-results">
+                        <div class="result-metric">
+                            <div class="metric-number">+180%</div>
+                            <div class="metric-label">Ventas</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="metric-number">-40%</div>
+                            <div class="metric-label">Costos Logísticos</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="metric-number">99%</div>
+                            <div class="metric-label">Disponibilidad</div>
+                        </div>
+                    </div>
+                    <blockquote>"Albo transformó completamente nuestra operación. Ahora tenemos productos frescos siempre disponibles."</blockquote>
+                    <cite>- María González, Gerente General</cite>
+                </div>
+
+                <div class="story-card">
+                    <h3>Distribuidora San Juan</h3>
+                    <p>PYME que expandió su alcance a 5 provincias gracias a nuestra red de distribución y asesoría comercial.</p>
+                    <div class="story-results">
+                        <div class="result-metric">
+                            <div class="metric-number">+250%</div>
+                            <div class="metric-label">Cobertura</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="metric-number">+150%</div>
+                            <div class="metric-label">Clientes</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="metric-number">18</div>
+                            <div class="metric-label">Meses ROI</div>
+                        </div>
+                    </div>
+                    <blockquote>"En 2 años pasamos de ser locales a tener presencia regional. El equipo de Albo fue clave en cada paso."</blockquote>
+                    <cite>- Carlos Méndez, Director Comercial</cite>
+                </div>
+
+                <div class="story-card">
+                    <h3>Kioscos Premium BA</h3>
+                    <p>Red de 120 kioscos que optimizó su mix de productos y aumentó la rentabilidad por metro cuadrado.</p>
+                    <div class="story-results">
+                        <div class="result-metric">
+                            <div class="metric-number">+95%</div>
+                            <div class="metric-label">Rentabilidad/m²</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="metric-number">-60%</div>
+                            <div class="metric-label">Stock Muerto</div>
+                        </div>
+                        <div class="result-metric">
+                            <div class="metric-number">24h</div>
+                            <div class="metric-label">Reposición</div>
+                        </div>
+                    </div>
+                    <blockquote>"Los reportes de Albo nos ayudaron a entender qué productos funcionan en cada ubicación."</blockquote>
+                    <cite>- Ana López, Directora Operaciones</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Albo Distribuciones</h3>
+                <p>Distribución y logística de vanguardia para hacer crecer tu negocio.</p>
+                <p>📧 info@albodistribuciones.com<br>
+                📞 +54 11 4567-8900<br>
+                📍 Av. Corrientes 1234, CABA</p>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="#servicios">Logística</a>
+                <a href="#productos">Catálogo</a>
+                <a href="#cobertura">Cobertura</a>
+                <a href="#">Asesoría</a>
+            </div>
+            <div class="footer-section">
+                <h3>Empresa</h3>
+                <a href="#">Sobre Nosotros</a>
+                <a href="#casos">Casos de Éxito</a>
+                <a href="#">Trabaja con Nosotros</a>
+                <a href="#">Prensa</a>
+            </div>
+            <div class="footer-section">
+                <h3>Soporte</h3>
+                <a href="#">Centro de Ayuda</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Estado del Servicio</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Albo Distribuciones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="openChat()" title="Habla con nuestro asistente">
+            💬
+        </button>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Tu Carrito</h3>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItems">
+                <p style="text-align: center; color: #64748b;">Tu carrito está vacío</p>
+            </div>
+            <div class="cart-total" id="cartTotal">
+                Total: $0
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="checkout()">
+                Solicitar Cotización
+            </button>
+        </div>
+    </div>
+
     <script>
-        // Configuración de productos
-        let products = [
-            {
-                id: 1,
-                name: "Agua Mineral x 1.5L",
-                description: "Agua pura y refrescante para mantenerse hidratado durante todo el día.",
-                price: 150.00,
-                imageUrl: "https://placehold.co/300x200/e3f2fd/1976d2?text=Agua+Mineral",
-                category: "bebidas"
-            },
-            {
-                id: 2,
-                name: "Leche Entera x 1L",
-                description: "Leche fresca y nutritiva, ideal para toda la familia.",
-                price: 200.50,
-                imageUrl: "https://placehold.co/300x200/fff3e0/f57c00?text=Leche+Entera",
-                category: "lacteos"
-            },
-            {
-                id: 3,
-                name: "Queso Cremoso x 500g",
-                description: "Suave y delicioso queso cremoso, perfecto para tus comidas.",
-                price: 450.75,
-                imageUrl: "https://drive.google.com/uc?export=view&id=1VwMyDaIZC4UlWs3p_A-uvJIIx5MckBEV"               
-                category: "fiambres-quesos"
-            }
+        // Productos de muestra
+        const products = [
+            { id: 1, name: "Coca Cola 600ml", category: "bebidas", price: 450, emoji: "🥤" },
+            { id: 2, name: "Pepsi 1.5L", category: "bebidas", price: 820, emoji: "🥤" },
+            { id: 3, name: "Agua Mineral 500ml", category: "bebidas", price: 280, emoji: "💧" },
+            { id: 4, name: "Jugo Naranja 1L", category: "bebidas", price: 650, emoji: "🍊" },
+            { id: 5, name: "Papas Fritas 150g", category: "snacks", price: 380, emoji: "🍟" },
+            { id: 6, name: "Galletitas Chocolate", category: "snacks", price: 320, emoji: "🍪" },
+            { id: 7, name: "Maní Salado 200g", category: "snacks", price: 290, emoji: "🥜" },
+            { id: 8, name: "Leche Entera 1L", category: "lacteos", price: 420, emoji: "🥛" },
+            { id: 9, name: "Yogurt Natural", category: "lacteos", price: 350, emoji: "🥛" },
+            { id: 10, name: "Detergente 750ml", category: "limpieza", price: 680, emoji: "🧴" },
+            { id: 11, name: "Papel Higiénico x6", category: "limpieza", price: 920, emoji: "🧻" },
+            { id: 12, name: "Cerveza Quilmes 1L", category: "bebidas", price: 850, emoji: "🍺" }
         ];
 
-        let nextProductId = 4;
+        let cart = [];
         let currentFilter = 'all';
 
-        // Función para renderizar productos
-        function renderProducts() {
-            const productListDiv = document.getElementById('product-list');
-            const filteredProducts = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
-
-            if (filteredProducts.length === 0) {
-                productListDiv.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">No hay productos disponibles en esta categoría.</p>';
-                return;
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
+        });
 
-            productListDiv.innerHTML = filteredProducts.map(product => `
-                <div class="product-card card" data-category="${product.category}">
-                    <div class="image-container mb-4">
-                        <img src="${product.imageUrl}" alt="${product.name}" class="centered-image">
-                    </div>
-                    <div class="flex-1 flex flex-col">
-                        <h3 class="text-xl font-semibold mb-3">${product.name}</h3>
-                        <p class="text-gray-600 text-sm mb-4 flex-1">${product.description}</p>
-                        <p class="text-blue-700 font-bold text-2xl mb-4">$${product.price.toFixed(2)}</p>
-                        <a href="#contact" class="btn-primary w-full inline-block text-center">
-                            <i class="fas fa-shopping-cart mr-2"></i>Consultar
-                        </a>
+        // Render products
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" data-category="${product.category}">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">$${product.price}</div>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">
+                            Agregar al Carrito
+                        </button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Event listeners para filtros de categoría
-        document.querySelectorAll('.category-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+        // Filter products
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                currentFilter = e.target.dataset.category;
-                renderProducts();
+                const filter = e.target.dataset.filter;
+                currentFilter = filter;
+                renderProducts(filter);
             });
         });
 
-        // Event listeners para agregar productos
-        document.getElementById('toggle-admin').addEventListener('click', () => {
-            const panel = document.getElementById('admin-panel');
-            panel.classList.toggle('hidden');
-        });
-
-        document.getElementById('add-product-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
             
-            const newProduct = {
-                id: nextProductId++,
-                name: formData.get('name'),
-                description: formData.get('description'),
-                price: parseFloat(formData.get('price')),
-                imageUrl: formData.get('imageUrl') || 'https://placehold.co/300x200/e0e0e0/666666?text=Producto',
-                category: formData.get('category')
-            };
-
-            products.push(newProduct);
-            renderProducts();
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
             
-            const messageDiv = document.getElementById('add-product-message');
-            messageDiv.className = 'success-message';
-            messageDiv.textContent = '✅ Producto agregado exitosamente';
-            e.target.reset();
+            updateCartUI();
             
+            // Show feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '¡Agregado!';
+            btn.style.background = '#16a085';
             setTimeout(() => {
-                messageDiv.className = '';
-                messageDiv.textContent = '';
-            }, 3000);
-        });
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 1000);
+        }
 
-        // Event listeners para formulario de contacto
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formMessage = document.getElementById('form-message');
+        // Update cart UI
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
             
-            formMessage.className = 'text-blue-600';
-            formMessage.textContent = 'Enviando consulta...';
-            formMessage.classList.remove('hidden');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #64748b;">Tu carrito está vacío</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>$${item.price} x ${item.quantity}</small>
+                        </div>
+                        <div>
+                            <button onclick="removeFromCart(${item.id})" style="background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                                Quitar
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            cartTotal.textContent = `Total: $${totalPrice.toLocaleString()}`;
+        }
 
-            setTimeout(() => {
-                formMessage.className = 'success-message';
-                formMessage.textContent = '✅ ¡Gracias por tu consulta! Nos pondremos en contacto contigo pronto.';
-                e.target.reset();
-            }, 2000);
-        });
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
 
-        // Inicializar productos al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-            renderProducts();
-        });
-    </script>
+        // Toggle cart modal
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('active');
+        }
 
-    <!-- N8N Chat Widget Script -->
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            const cartSummary = cart.map(item => `${item.name} x${item.quantity} - $${item.price * item.quantity}`).join('\n');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const message = `¡Hola! Me gustaría solicitar una cotización para:\n\n${cartSummary}\n\nTotal estimado: $${total.toLocaleString()}\n\n¿Podrían enviarme más información?`;
+            
+            // Aquí podrías integrar con WhatsApp, email o tu chatbot
+            alert('¡Perfecto! Te contactaremos pronto con tu cotización.\n\n' + message);
+            
+            // Limpiar carrito
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
 
-        createChat({
-            webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5a1b-47c2-b32e-054e1cd872cd/chat',
-            
-            // Configuración de textos en español
-            title: 'Asistente Virtual Albo',
-            subtitle: 'Estamos aquí para ayudarte 24/7',
-            footer: '',
-            
-            // Configuración de mensajes
-            getStarted: 'Iniciar conversación',
-            inputPlaceholder: 'Escribe tu mensaje aquí...',
-            
-            // Configuración de la interfaz
-            initialMessages: [
-                'Hola! 👋',
-                'Soy el asistente virtual de Albo Distribuciones. ¿En qué puedo ayudarte hoy?'
-            ],
-            
-            // Tema personalizado con colores Albo
-            theme: {
-                // Colores principales
-                primaryColor: '#0d47a1',      // Azul principal Albo
-                secondaryColor: '#1976d2',    // Azul secundario
-                textColor: '#333333',         // Texto principal
-                
-                // Colores del chat
-                chatWindow: {
-                    backgroundColor: '#ffffff',
-                    textColor: '#333333'
-                },
-                
-                // Botón del chat
-                launcher: {
-                    backgroundColor: '#0d47a1',
-                    textColor: '#ffffff'
-                },
-                
-                // Header del chat
-                header: {
-                    backgroundColor: '#0d47a1',
-                    textColor: '#ffffff'
-                },
-                
-                // Mensajes del usuario
-                userMessage: {
-                    backgroundColor: '#d32f2f',  // Rojo Albo
-                    textColor: '#ffffff'
-                },
-                
-                // Mensajes del bot
-                botMessage: {
-                    backgroundColor: '#f5f5f5',
-                    textColor: '#333333',
-                    borderColor: '#e0e0e0'
-                },
-                
-                // Input del usuario
-                input: {
-                    backgroundColor: '#ffffff',
-                    textColor: '#333333',
-                    borderColor: '#e0e0e0'
+        // Open chat
+        function openChat() {
+            // Aquí integrarías con tu chatbot de n8n
+            alert('¡Hola! Soy el asistente de Albo Distribuciones.\n\n¿En qué puedo ayudarte hoy?\n\n(Próximamente: Chat integrado con n8n)');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-            },
-            
-            // Configuración adicional
-            chatSessionKey: 'albo-chat-session',
-            defaultHeight: 600,
-            defaultWidth: 400,
-            showWelcomeScreen: true,
-            
-            // Posición del botón
-            position: 'bottom-right',
-            
-            // Configuración de dominio
-            allowedOrigins: ['*']
+            });
+        });
+
+        // Initialize
+        renderProducts();
+        updateCartUI();
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.service-card, .product-card, .story-card');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
         });
     </script>
-
 </body>
 </html>
-
-

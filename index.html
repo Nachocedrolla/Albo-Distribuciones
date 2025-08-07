@@ -753,16 +753,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Responsive chat widget */
-        @media (max-width: 768px) {
-            .chatbot-widget {
-                width: 320px;
-                height: 450px;
-                bottom: 70px;
-                right: -10px;
-            }
-        }
-
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -816,6 +806,16 @@
             padding-top: 2rem;
             border-top: 1px solid #374151;
             color: #9ca3af;
+        }
+
+        /* Responsive chat widget */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: 320px;
+                height: 450px;
+                bottom: 70px;
+                right: -10px;
+            }
         }
 
         /* Responsive */
@@ -1054,7 +1054,7 @@
                     </div>
                     <div class="chat-status">
                         <h4>Asistente Virtual</h4>
-                        <span id="chatStatus">En línea</span>
+                        <span id="chatStatus">Conectando...</span>
                     </div>
                 </div>
                 <button class="chat-minimize" onclick="toggleChatbot()">
@@ -1102,7 +1102,7 @@
         
         <button class="chatbot-button" onclick="toggleChatbot()">
             <i class="fas fa-comments"></i>
-            <span class="chatbot-badge" id="chatBadge">1</span>
+            <span class="chatbot-badge" id="chatBadge">●</span>
         </button>
     </div>
 
@@ -1142,6 +1142,14 @@
     </footer>
 
     <script>
+        // Configuration - Tu n8n webhook URL real
+        const CHATBOT_CONFIG = {
+            webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5afb-47c2-b32e-054e1cd872cdfchat',
+            apiKey: '', // No necesitas API key según tu configuración
+            sessionId: generateSessionId(),
+            timeout: 10000 // 10 seconds timeout
+        };
+
         // Sample product data
         const products = [
             {
@@ -1218,6 +1226,12 @@
 
         let cart = [];
         let filteredProducts = products;
+        let chatbotOpen = false;
+        let messageHistory = [];
+
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
 
         // Header scroll effect
         window.addEventListener('scroll', function() {
@@ -1335,40 +1349,6 @@
             cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
         }
 
-        function proceedToCheckout() {
-            if (cart.length === 0) {
-                showNotification('Tu carrito está vacío');
-                return;
-            }
-            
-            // Close cart modal
-            toggleCart();
-            
-            // Open chatbot with checkout context
-            if (!chatbotOpen) {
-                toggleChatbot();
-            }
-            
-            // Send checkout message to chatbot
-            setTimeout(() => {
-                const checkoutMessage = `Hola, me gustaría procesar mi pedido del carrito de compras. 
-
-🛒 Mi carrito contiene:
-${cart.map(item => `• ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toLocaleString()}`).join('\n')}
-
-💰 Total: ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
-
-¿Puedes ayudarme a completar mi pedido?`;
-                
-                addMessageToChat(checkoutMessage, 'user');
-                
-                // Send to n8n if configured
-                if (CHATBOT_CONFIG.webhookUrl !== 'webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5afb-47c2-b32e-054e1cd872cdfchat'') {
-                    sendMessage();
-                }
-            }, 500);
-        }
-
         function showNotification(message) {
             // Simple notification system
             const notification = document.createElement('div');
@@ -1393,21 +1373,6 @@ ${cart.map(item => `• ${item.name} (x${item.quantity}) - ${(item.price * item.
 
         // ===== CHATBOT INTEGRATION WITH N8N =====
         
-        // Configuration - Tu n8n webhook URL real
-        const CHATBOT_CONFIG = {
-            webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5afb-47c2-b32e-054e1cd872cdfchat',
-            apiKey: '', // No necesitas API key según tu configuración
-            sessionId: generateSessionId(),
-            timeout: 10000 // 10 seconds timeout
-        };
-
-        let chatbotOpen = false;
-        let messageHistory = [];
-
-        function generateSessionId() {
-            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        }
-
         // Toggle chatbot visibility
         function toggleChatbot() {
             const widget = document.getElementById('chatbotWidget');
@@ -1566,14 +1531,14 @@ O intenta nuevamente en unos momentos. ¡Estaremos encantados de ayudarte!`;
                 
                 // Handle special responses from your workflow
                 if (response.price || response.precio) {
-                    message += `\n\n💰 Precio: ${(response.price || response.precio).toLocaleString()}`;
+                    message += `\n\n💰 Precio: $${(response.price || response.precio).toLocaleString()}`;
                 }
                 
                 if (response.products || response.productos) {
                     const products = response.products || response.productos;
                     if (Array.isArray(products) && products.length > 0) {
                         message += '\n\n📦 Productos encontrados:\n';
-                        message += products.map(p => `• ${p.name || p.nombre} - ${(p.price || p.precio).toLocaleString()}`).join('\n');
+                        message += products.map(p => `• ${p.name || p.nombre} - $${(p.price || p.precio).toLocaleString()}`).join('\n');
                     }
                 }
                 
@@ -1699,206 +1664,6 @@ O intenta nuevamente en unos momentos. ¡Estaremos encantados de ayudarte!`;
             });
         }
 
-        // Quick action functions for common queries
-        function quickAction(action, data = {}) {
-            const actions = {
-                showCart: () => {
-                    toggleCart();
-                    const message = cart.length > 0 
-                        ? `Tienes ${cart.length} productos en tu carrito. ¿Te ayudo con algo más?`
-                        : 'Tu carrito está vacío. ¿Te muestro nuestros productos?';
-                    addMessageToChat(message, 'bot');
-                },
-                showProducts: () => {
-                    scrollToElement('#productos');
-                    addMessageToChat('Aquí tienes nuestro catálogo de productos. ¿Te interesa alguna categoría en particular?', 'bot');
-                },
-                contactInfo: () => {
-                    const message = `Puedes contactarnos por:
-                    
-📞 Teléfono: +54 11 1234-5678
-📧 Email: info@albodistribuciones.com
-📍 Ubicación: Buenos Aires, Argentina
-🕒 Horario: Lun-Vie 8:00-18:00`;
-                    addMessageToChat(message, 'bot');
-                }
-            };
-            
-            if (actions[action]) {
-                actions[action]();
-            }
-        }
-
-        // Scroll to element helper
-        function scrollToElement(selector) {
-            const element = document.querySelector(selector);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Initialize chatbot on page load
-        function initializeChatbot() {
-            setupChatInput();
-            
-            // Show notification badge initially
-            setTimeout(() => {
-                const badge = document.getElementById('chatBadge');
-                if (badge && !chatbotOpen) {
-                    badge.style.display = 'flex';
-                }
-            }, 3000);
-            
-            // Test connection to n8n (optional)
-            testN8nConnection();
-        }
-
-        // Test n8n connection - Updated for your configuration
-        async function testN8nConnection() {
-            try {
-                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        message: 'test conexión',
-                        text: 'test conexión',
-                        sessionId: CHATBOT_CONFIG.sessionId,
-                        source: 'website',
-                        test: true
-                    })
-                });
-                
-                if (response.ok) {
-                    console.log('✅ Conexión con n8n exitosa');
-                    updateChatStatus('En línea');
-                    
-                    // Optional: Add a small indicator that connection is working
-                    const badge = document.getElementById('chatBadge');
-                    if (badge) {
-                        badge.style.display = 'flex';
-                        badge.textContent = '●';
-                        badge.style.background = '#10b981'; // Green color
-                        badge.title = 'Chatbot conectado';
-                    }
-                } else {
-                    console.warn('⚠️ Test de conexión falló:', response.status);
-                    updateChatStatus('Conectando...');
-                }
-            } catch (error) {
-                console.warn('⚠️ No se pudo conectar al chatbot:', error.message);
-                updateChatStatus('Modo offline');
-                
-                // Show offline indicator
-                const badge = document.getElementById('chatBadge');
-                if (badge) {
-                    badge.style.display = 'flex';
-                    badge.textContent = '!';
-                    badge.style.background = '#f59e0b'; // Orange color
-                    badge.title = 'Chatbot en modo offline';
-                }
-            }
-        }
-
-        // Quick actions optimized for your workflow
-        function quickAction(action, data = {}) {
-            const actions = {
-                showCart: () => {
-                    toggleCart();
-                    if (cart.length > 0) {
-                        const message = `Tienes ${cart.length} productos en tu carrito por un total de ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}. ¿Te ayudo a procesar el pedido?`;
-                        addMessageToChat(message, 'bot');
-                        
-                        // Send cart info to n8n for processing
-                        setTimeout(() => {
-                            sendCartInfoToBot();
-                        }, 1000);
-                    } else {
-                        addMessageToChat('Tu carrito está vacío. ¿Te muestro nuestros productos más populares?', 'bot');
-                    }
-                },
-                showProducts: () => {
-                    scrollToElement('#productos');
-                    addMessageToChat('Aquí tienes nuestro catálogo completo. También puedo ayudarte a encontrar productos específicos. ¿Qué tipo de producto buscas?', 'bot');
-                },
-                contactInfo: () => {
-                    const message = `📞 Información de contacto:
-
-• Teléfono: +54 11 1234-5678  
-• Email: info@albodistribuciones.com
-• Ubicación: Buenos Aires, Argentina
-• Horario: Lun-Vie 8:00-18:00
-
-¿Necesitas que un asesor te contacte directamente?`;
-                    addMessageToChat(message, 'bot');
-                },
-                checkPrices: () => {
-                    addMessageToChat('Puedo consultar precios actualizados de cualquier producto. Solo menciona qué producto te interesa y te doy el precio al instante.', 'bot');
-                },
-                createOrder: () => {
-                    if (cart.length > 0) {
-                        addMessageToChat('¡Perfecto! Voy a ayudarte a crear tu pedido. Necesito algunos datos para procesar tu orden.', 'bot');
-                        sendCartInfoToBot();
-                    } else {
-                        addMessageToChat('Para crear un pedido necesitas productos en tu carrito. ¿Te ayudo a seleccionar productos?', 'bot');
-                    }
-                }
-            };
-            
-            if (actions[action]) {
-                actions[action]();
-            }
-        }
-
-        // Send cart information to your n8n workflow for processing
-        async function sendCartInfoToBot() {
-            if (cart.length === 0) return;
-            
-            try {
-                const cartData = {
-                    message: 'consultar carrito de compras',
-                    text: 'consultar carrito de compras',
-                    sessionId: CHATBOT_CONFIG.sessionId,
-                    source: 'website',
-                    action: 'cart_consultation',
-                    
-                    cartDetails: {
-                        items: cart.map(item => ({
-                            id: item.id,
-                            name: item.name,
-                            price: item.price,
-                            quantity: item.quantity,
-                            subtotal: item.price * item.quantity,
-                            category: item.category
-                        })),
-                        totalItems: cart.reduce((sum, item) => sum + item.quantity, 0),
-                        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-                        currency: 'ARS'
-                    }
-                };
-
-                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(cartData)
-                });
-
-                if (response.ok) {
-                    const botResponse = await response.text();
-                    if (botResponse && botResponse.length > 0) {
-                        handleBotResponse(botResponse);
-                    }
-                }
-            } catch (error) {
-                console.error('Error sending cart info:', error);
-            }
-        }
-
         // Enhanced proceedToCheckout function
         function proceedToCheckout() {
             if (cart.length === 0) {
@@ -1918,9 +1683,9 @@ O intenta nuevamente en unos momentos. ¡Estaremos encantados de ayudarte!`;
             setTimeout(() => {
                 const checkoutMessage = `crear pedido para los siguientes productos:
 
-${cart.map(item => `• ${item.name} x${item.quantity} - ${(item.price * item.quantity).toLocaleString()}`).join('\n')}
+${cart.map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toLocaleString()}`).join('\n')}
 
-Total: ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
+Total: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
 
 Por favor procesa este pedido.`;
                 
@@ -1996,6 +1761,79 @@ Por favor procesa este pedido.`;
             }
         }
 
+        // Test n8n connection - Updated for your configuration
+        async function testN8nConnection() {
+            try {
+                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        message: 'test conexión',
+                        text: 'test conexión',
+                        sessionId: CHATBOT_CONFIG.sessionId,
+                        source: 'website',
+                        test: true
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('✅ Conexión con n8n exitosa');
+                    updateChatStatus('En línea');
+                    
+                    // Optional: Add a small indicator that connection is working
+                    const badge = document.getElementById('chatBadge');
+                    if (badge) {
+                        badge.style.display = 'flex';
+                        badge.textContent = '●';
+                        badge.style.background = '#10b981'; // Green color
+                        badge.title = 'Chatbot conectado';
+                    }
+                } else {
+                    console.warn('⚠️ Test de conexión falló:', response.status);
+                    updateChatStatus('Conectando...');
+                }
+            } catch (error) {
+                console.warn('⚠️ No se pudo conectar al chatbot:', error.message);
+                updateChatStatus('Modo offline');
+                
+                // Show offline indicator
+                const badge = document.getElementById('chatBadge');
+                if (badge) {
+                    badge.style.display = 'flex';
+                    badge.textContent = '!';
+                    badge.style.background = '#f59e0b'; // Orange color
+                    badge.title = 'Chatbot en modo offline';
+                }
+            }
+        }
+
+        // Scroll to element helper
+        function scrollToElement(selector) {
+            const element = document.querySelector(selector);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialize chatbot on page load
+        function initializeChatbot() {
+            setupChatInput();
+            
+            // Test connection immediately
+            testN8nConnection();
+            
+            // Show notification badge after a short delay
+            setTimeout(() => {
+                const badge = document.getElementById('chatBadge');
+                if (badge && !chatbotOpen) {
+                    badge.style.display = 'flex';
+                }
+            }, 2000);
+        }
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -2054,4 +1892,3 @@ Por favor procesa este pedido.`;
     </script>
 </body>
 </html>
-

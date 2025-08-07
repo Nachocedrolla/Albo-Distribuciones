@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albo Distribuciones - Distribución y Logística de Vanguardia</title>
+    <title>Albo Distribuciones - Soluciones Logísticas Integrales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,44 +12,58 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --success: #10b981;
+        }
+
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-dark);
             overflow-x: hidden;
         }
 
-        /* Navbar */
-        .navbar {
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
             position: fixed;
-            top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 1rem 2rem;
+            top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .header.scrolled {
+            background: rgba(37, 99, 235, 0.95);
+            padding: 0.5rem 0;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-links {
@@ -58,37 +73,32 @@
         }
 
         .nav-links a {
+            color: white;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
             transition: color 0.3s ease;
+            font-weight: 500;
         }
 
         .nav-links a:hover {
-            color: #667eea;
+            color: var(--accent-color);
         }
 
-        .cart-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.3s ease;
+        .cart-icon {
             position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
         }
 
-        .cart-btn:hover {
-            transform: translateY(-2px);
+        .cart-icon:hover {
+            transform: scale(1.1);
         }
 
         .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
-            background: #ff4757;
+            background: var(--accent-color);
             color: white;
             border-radius: 50%;
             width: 20px;
@@ -102,8 +112,11 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(30, 64, 175, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,41 +126,25 @@
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23a)"/><circle cx="800" cy="400" r="100" fill="url(%23a)"/><circle cx="400" cy="800" r="120" fill="url(%23a)"/></svg>');
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
         .hero-content {
             max-width: 800px;
-            z-index: 2;
-            position: relative;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero h1 {
             font-size: 3.5rem;
-            font-weight: 700;
             margin-bottom: 1rem;
-            animation: slideUp 1s ease-out;
+            background: linear-gradient(45deg, #ffffff, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
             opacity: 0.9;
-            animation: slideUp 1s ease-out 0.2s both;
         }
 
         .cta-buttons {
@@ -155,23 +152,31 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: slideUp 1s ease-out 0.4s both;
         }
 
         .btn {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 50px;
-            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
-            background: white;
-            color: #667eea;
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
         }
 
         .btn-secondary {
@@ -180,26 +185,15 @@
             border: 2px solid white;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
         }
 
         /* Services Section */
         .services {
-            padding: 5rem 2rem;
-            background: #f8fafc;
+            padding: 6rem 2rem;
+            background: var(--gray-50);
         }
 
         .container {
@@ -209,17 +203,20 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #1a202c;
+            margin-bottom: 4rem;
         }
 
-        .section-subtitle {
-            text-align: center;
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
             font-size: 1.2rem;
-            color: #64748b;
-            margin-bottom: 3rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .services-grid {
@@ -231,55 +228,68 @@
         .service-card {
             background: white;
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
             text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
             font-size: 1.5rem;
-            color: white;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
         }
 
         /* Products Section */
         .products {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
+            background: white;
         }
 
         .product-filters {
             display: flex;
             justify-content: center;
+            gap: 1rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
-            gap: 1rem;
         }
 
         .filter-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid #667eea;
-            background: transparent;
-            color: #667eea;
-            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
 
         .filter-btn.active,
         .filter-btn:hover {
-            background: #667eea;
+            background: var(--primary-color);
             color: white;
         }
 
@@ -287,108 +297,70 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-bottom: 2rem;
         }
 
         .product-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .product-image {
-            width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gray-100);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3rem;
+            font-size: 4rem;
+            color: var(--text-light);
         }
 
         .product-info {
             padding: 1.5rem;
         }
 
-        .product-category {
-            color: #667eea;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .product-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin: 0.5rem 0;
+        .product-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
         }
 
         .product-price {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: #16a085;
+            font-weight: bold;
+            color: var(--primary-color);
             margin-bottom: 1rem;
         }
 
         .add-to-cart {
             width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0.8rem;
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 0.75rem;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
             font-weight: 600;
-            transition: transform 0.3s ease;
         }
 
         .add-to-cart:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Coverage Section */
-        .coverage {
-            padding: 5rem 2rem;
-            background: #f8fafc;
-        }
-
-        .coverage-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .coverage-map {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .map-placeholder {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
+            background: var(--secondary-color);
+            transform: translateY(-1px);
         }
 
         /* Success Stories */
         .success-stories {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
+            background: var(--gray-50);
         }
 
         .stories-grid {
@@ -400,87 +372,113 @@
         .story-card {
             background: white;
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #667eea;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            position: relative;
         }
 
-        .story-results {
+        .story-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+        }
+
+        .story-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .story-author {
             display: flex;
-            gap: 2rem;
-            margin: 1rem 0;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .result-metric {
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info h5 {
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Coverage Map */
+        .coverage {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .coverage-map {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .coverage-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
             text-align: center;
         }
 
-        .metric-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
         }
 
-        .metric-label {
-            font-size: 0.9rem;
-            color: #64748b;
-        }
-
-        /* Chat Widget */
-        .chat-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .chat-button {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .chat-button:hover {
-            transform: scale(1.1);
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
-            50% { box-shadow: 0 4px 30px rgba(102, 126, 234, 0.6); }
-            100% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); }
+        .stat-label {
+            color: var(--text-light);
+            margin-top: 0.5rem;
         }
 
         /* Cart Modal */
         .cart-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
             z-index: 2000;
         }
 
-        .cart-modal.active {
-            display: flex;
-        }
-
         .cart-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: white;
             width: 90%;
-            max-width: 500px;
-            border-radius: 20px;
+            max-width: 600px;
+            border-radius: 16px;
             padding: 2rem;
             max-height: 80vh;
             overflow-y: auto;
@@ -490,37 +488,300 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #64748b;
+            border-bottom: 1px solid var(--gray-100);
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-100);
         }
 
         .cart-total {
-            text-align: center;
-            margin: 2rem 0;
+            text-align: right;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Chatbot Widget */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.5rem;
-            font-weight: 700;
+            position: relative;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.6);
+        }
+
+        .chatbot-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        .chatbot-widget {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .chatbot-widget.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: between;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex: 1;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-status {
+            flex: 1;
+        }
+
+        .chat-status h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chat-status span {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .chat-minimize {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.2rem;
+        }
+
+        .chat-messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: var(--gray-50);
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 0.8rem 1rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-message.user .message-content {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            border: 1px solid var(--gray-100);
+            border-radius: 20px;
+            padding: 0.8rem 1rem;
+            outline: none;
+            resize: none;
+            min-height: 40px;
+            max-height: 100px;
+            font-family: inherit;
+        }
+
+        .chat-send {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send:hover:not(:disabled) {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 0.8rem 1rem;
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typingAnimation 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive chat widget */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: 320px;
+                height: 450px;
+                bottom: 70px;
+                right: -10px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
         }
 
         /* Footer */
         .footer {
-            background: #1a202c;
+            background: var(--text-dark);
             color: white;
             padding: 3rem 2rem 1rem;
         }
@@ -535,41 +796,36 @@
 
         .footer-section h3 {
             margin-bottom: 1rem;
-            color: #667eea;
+            color: var(--accent-color);
         }
 
+        .footer-section p,
         .footer-section a {
-            color: #cbd5e0;
+            color: #d1d5db;
             text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
+            line-height: 1.6;
         }
 
         .footer-section a:hover {
-            color: white;
+            color: var(--accent-color);
         }
 
         .footer-bottom {
             text-align: center;
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid #2d3748;
-            color: #cbd5e0;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
             .nav-links {
                 display: none;
             }
 
-            .coverage-content {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
             .cta-buttons {
@@ -577,41 +833,49 @@
                 align-items: center;
             }
 
-            .btn {
-                width: 100%;
-                max-width: 300px;
+            .section-title h2 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="logo">Albo Distribuciones</div>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav">
+            <div class="logo">
+                <i class="fas fa-truck"></i>
+                Albo Distribuciones
+            </div>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#productos">Catálogo</a></li>
-                <li><a href="#cobertura">Cobertura</a></li>
+                <li><a href="#productos">Productos</a></li>
                 <li><a href="#casos">Casos de Éxito</a></li>
+                <li><a href="#cobertura">Cobertura</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-            <button class="cart-btn" onclick="toggleCart()">
-                🛒 Carrito
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count" id="cartCount">0</span>
-            </button>
-        </div>
-    </nav>
+            </div>
+        </nav>
+    </header>
 
     <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="hero-content">
-            <h1>Distribución de Vanguardia</h1>
-            <p>Llevamos tus productos al siguiente nivel con tecnología, logística inteligente y soluciones personalizadas que impulsan tu crecimiento</p>
+            <h1>Distribución y Soluciones en la Nube</h1>
+            <p>Llevamos tus productos y servicios al siguiente nivel con logística, innovación y asesoramiento personalizado</p>
             <div class="cta-buttons">
-                <a href="#productos" class="btn btn-primary">Ver Catálogo</a>
-                <a href="#contacto" class="btn btn-secondary">Hablar con Experto</a>
+                <a href="#productos" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i>
+                    Ver Catálogo
+                </a>
+                <a href="#contacto" class="btn btn-secondary">
+                    <i class="fas fa-phone"></i>
+                    Contactar Ahora
+                </a>
             </div>
         </div>
     </section>
@@ -619,38 +883,38 @@
     <!-- Services Section -->
     <section class="services" id="servicios">
         <div class="container">
-            <h2 class="section-title">Nuestros Servicios</h2>
-            <p class="section-subtitle">Soluciones integrales para hacer crecer tu negocio</p>
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
+                <p>Soluciones integrales para hacer crecer tu negocio</p>
+            </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">🚛</div>
-                    <h3>Logística Avanzada</h3>
-                    <p>Red de distribución propia y tercerizada con tecnología de tracking en tiempo real y optimización de rutas.</p>
+                    <div class="service-icon">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <h3>Bebidas & Consumo Masivo</h3>
+                    <p>Distribuimos bebidas y productos de consumo masivo con cobertura nacional, garantizando la mejor calidad y frescura.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3>Productos Premium</h3>
-                    <p>Bebidas y productos de consumo masivo seleccionados con los más altos estándares de calidad.</p>
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Logística Integral</h3>
+                    <p>Logística propia y tercerizada para máxima eficiencia operativa. Optimizamos cada etapa del proceso de distribución.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">🎯</div>
-                    <h3>Asesoría Comercial</h3>
-                    <p>Expertos dedicados que optimizan tus estrategias de ventas y posicionamiento en el mercado.</p>
+                    <div class="service-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Entrega Garantizada</h3>
+                    <p>Garantizamos la llegada de tus productos en tiempo y forma. Monitoreo en tiempo real y actualizaciones constantes.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>Analytics & Reportes</h3>
-                    <p>Dashboard inteligente con métricas de ventas, inventario y performance en tiempo real.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🔒</div>
-                    <h3>Garantía Total</h3>
-                    <p>Aseguramos la entrega perfecta de tus productos con seguro integral y soporte 24/7.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3>Cobertura Nacional</h3>
-                    <p>Llegamos a todo el territorio argentino con tiempos de entrega optimizados.</p>
+                    <div class="service-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Asesoramiento Especializado</h3>
+                    <p>Expertos a tu disposición para optimizar tus estrategias comerciales y maximizar tu rentabilidad.</p>
                 </div>
             </div>
         </div>
@@ -659,64 +923,19 @@
     <!-- Products Section -->
     <section class="products" id="productos">
         <div class="container">
-            <h2 class="section-title">Catálogo de Productos</h2>
-            <p class="section-subtitle">Descubre nuestra selección premium de productos</p>
-            
+            <div class="section-title">
+                <h2>Catálogo de Productos</h2>
+                <p>Descubre nuestra amplia gama de productos de alta calidad</p>
+            </div>
             <div class="product-filters">
                 <button class="filter-btn active" data-filter="all">Todos</button>
                 <button class="filter-btn" data-filter="bebidas">Bebidas</button>
-                <button class="filter-btn" data-filter="snacks">Snacks</button>
-                <button class="filter-btn" data-filter="lacteos">Lácteos</button>
+                <button class="filter-btn" data-filter="alimentos">Alimentos</button>
                 <button class="filter-btn" data-filter="limpieza">Limpieza</button>
+                <button class="filter-btn" data-filter="cuidado">Cuidado Personal</button>
             </div>
-
             <div class="products-grid" id="productsGrid">
-                <!-- Los productos se cargan dinámicamente -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Coverage Section -->
-    <section class="coverage" id="cobertura">
-        <div class="container">
-            <div class="coverage-content">
-                <div>
-                    <h2 class="section-title" style="text-align: left;">Cobertura Nacional</h2>
-                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">Llegamos a todo el territorio argentino con nuestra red logística optimizada</p>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem;">
-                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">24</div>
-                            <div>Provincias</div>
-                        </div>
-                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">1200+</div>
-                            <div>Ciudades</div>
-                        </div>
-                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">48h</div>
-                            <div>Entrega Máx.</div>
-                        </div>
-                        <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; font-weight: 700; color: #667eea;">99.8%</div>
-                            <div>Puntualidad</div>
-                        </div>
-                    </div>
-
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 0.5rem;">✅ AMBA y GBA - Entrega mismo día</li>
-                        <li style="margin-bottom: 0.5rem;">✅ Interior - Entrega 24-48hs</li>
-                        <li style="margin-bottom: 0.5rem;">✅ Patagonia - Entrega 48-72hs</li>
-                        <li style="margin-bottom: 0.5rem;">✅ Tracking en tiempo real</li>
-                    </ul>
-                </div>
-                <div class="coverage-map">
-                    <div class="map-placeholder">
-                        🗺️ Mapa Interactivo de Cobertura
-                        <br>
-                        <small>(Próximamente mapa detallado)</small>
-                    </div>
-                </div>
+                <!-- Products will be loaded here by JavaScript -->
             </div>
         </div>
     </section>
@@ -724,106 +943,197 @@
     <!-- Success Stories -->
     <section class="success-stories" id="casos">
         <div class="container">
-            <h2 class="section-title">Casos de Éxito</h2>
-            <p class="section-subtitle">Historias reales de crecimiento junto a nuestros clientes</p>
-            
+            <div class="section-title">
+                <h2>Casos de Éxito</h2>
+                <p>Lo que dicen nuestros clientes sobre nuestro trabajo</p>
+            </div>
             <div class="stories-grid">
                 <div class="story-card">
-                    <h3>SuperMax Córdoba</h3>
-                    <p>Cadena de supermercados que triplicó su rotación de bebidas con nuestro sistema de reposición inteligente.</p>
-                    <div class="story-results">
-                        <div class="result-metric">
-                            <div class="metric-number">+180%</div>
-                            <div class="metric-label">Ventas</div>
-                        </div>
-                        <div class="result-metric">
-                            <div class="metric-number">-40%</div>
-                            <div class="metric-label">Costos Logísticos</div>
-                        </div>
-                        <div class="result-metric">
-                            <div class="metric-number">99%</div>
-                            <div class="metric-label">Disponibilidad</div>
+                    <div class="story-content">
+                        Albo Distribuciones transformó nuestra cadena de suministro. Ahora llegamos a más puntos de venta con menos costo operativo y mayor eficiencia. Su sistema de monitoreo nos da tranquilidad total.
+                    </div>
+                    <div class="story-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h5>María Rodríguez</h5>
+                            <span>Gerente Comercial - Bebidas Premium S.A.</span>
                         </div>
                     </div>
-                    <blockquote>"Albo transformó completamente nuestra operación. Ahora tenemos productos frescos siempre disponibles."</blockquote>
-                    <cite>- María González, Gerente General</cite>
                 </div>
-
                 <div class="story-card">
-                    <h3>Distribuidora San Juan</h3>
-                    <p>PYME que expandió su alcance a 5 provincias gracias a nuestra red de distribución y asesoría comercial.</p>
-                    <div class="story-results">
-                        <div class="result-metric">
-                            <div class="metric-number">+250%</div>
-                            <div class="metric-label">Cobertura</div>
-                        </div>
-                        <div class="result-metric">
-                            <div class="metric-number">+150%</div>
-                            <div class="metric-label">Clientes</div>
-                        </div>
-                        <div class="result-metric">
-                            <div class="metric-number">18</div>
-                            <div class="metric-label">Meses ROI</div>
+                    <div class="story-content">
+                        En 6 meses aumentamos nuestra cobertura geográfica un 200% gracias a la red logística de Albo. Su asesoramiento comercial nos ayudó a identificar nuevos mercados rentables.
+                    </div>
+                    <div class="story-author">
+                        <div class="author-avatar">JL</div>
+                        <div class="author-info">
+                            <h5>Jorge López</h5>
+                            <span>Director Comercial - Industrias Alimentarias</span>
                         </div>
                     </div>
-                    <blockquote>"En 2 años pasamos de ser locales a tener presencia regional. El equipo de Albo fue clave en cada paso."</blockquote>
-                    <cite>- Carlos Méndez, Director Comercial</cite>
                 </div>
-
                 <div class="story-card">
-                    <h3>Kioscos Premium BA</h3>
-                    <p>Red de 120 kioscos que optimizó su mix de productos y aumentó la rentabilidad por metro cuadrado.</p>
-                    <div class="story-results">
-                        <div class="result-metric">
-                            <div class="metric-number">+95%</div>
-                            <div class="metric-label">Rentabilidad/m²</div>
-                        </div>
-                        <div class="result-metric">
-                            <div class="metric-number">-60%</div>
-                            <div class="metric-label">Stock Muerto</div>
-                        </div>
-                        <div class="result-metric">
-                            <div class="metric-number">24h</div>
-                            <div class="metric-label">Reposición</div>
+                    <div class="story-content">
+                        La puntualidad y confiabilidad de Albo es excepcional. Nunca hemos tenido problemas de stock gracias a su sistema de reposición automática y seguimiento en tiempo real.
+                    </div>
+                    <div class="story-author">
+                        <div class="author-avatar">AS</div>
+                        <div class="author-info">
+                            <h5>Ana Silva</h5>
+                            <span>Propietaria - Supermercados del Norte</span>
                         </div>
                     </div>
-                    <blockquote>"Los reportes de Albo nos ayudaron a entender qué productos funcionan en cada ubicación."</blockquote>
-                    <cite>- Ana López, Directora Operaciones</cite>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Coverage Section -->
+    <section class="coverage" id="cobertura">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cobertura Nacional</h2>
+                <p>Llegamos a todo el país con la misma calidad y eficiencia</p>
+            </div>
+            <div class="coverage-map">
+                <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 2rem;"></i>
+                <h3>Presencia en Todo Argentina</h3>
+                <p>Nuestra red logística abarca las principales ciudades y centros urbanos del país, garantizando tiempos de entrega óptimos y cobertura completa para tu negocio.</p>
+                
+                <div class="coverage-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">23</span>
+                        <div class="stat-label">Provincias Cubiertas</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <div class="stat-label">Ciudades Atendidas</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">48h</span>
+                        <div class="stat-label">Tiempo Máximo de Entrega</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99.8%</span>
+                        <div class="stat-label">Tasa de Entrega Exitosa</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Carrito de Compras</h3>
+                <button onclick="toggleCart()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="cartItems">
+                <p style="text-align: center; color: var(--text-light);">Tu carrito está vacío</p>
+            </div>
+            <div class="cart-total" id="cartTotal" style="display: none;">
+                Total: $0
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i>
+                Proceder al Pago
+            </button>
+        </div>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <div class="chatbot-widget" id="chatbotWidget">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chat-status">
+                        <h4>Asistente Virtual</h4>
+                        <span id="chatStatus">En línea</span>
+                    </div>
+                </div>
+                <button class="chat-minimize" onclick="toggleChatbot()">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message">
+                    <div class="message-content">
+                        ¡Hola! 👋 Soy tu asistente virtual de Albo Distribuciones. 
+                        <br><br>
+                        Puedo ayudarte con:
+                        <br>• 🛒 Información de productos
+                        <br>• 📦 Estado de pedidos
+                        <br>• 🚚 Consultas de entrega
+                        <br>• 💬 Asesoramiento comercial
+                        <br><br>
+                        ¿En qué puedo ayudarte hoy?
+                    </div>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea 
+                        class="chat-input" 
+                        id="chatInput" 
+                        placeholder="Escribe tu mensaje..."
+                        rows="1"
+                    ></textarea>
+                    <button class="chat-send" id="chatSend" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <button class="chatbot-button" onclick="toggleChatbot()">
+            <i class="fas fa-comments"></i>
+            <span class="chatbot-badge" id="chatBadge">1</span>
+        </button>
+    </div>
 
     <!-- Footer -->
     <footer class="footer" id="contacto">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Albo Distribuciones</h3>
-                <p>Distribución y logística de vanguardia para hacer crecer tu negocio.</p>
-                <p>📧 info@albodistribuciones.com<br>
-                📞 +54 11 4567-8900<br>
-                📍 Av. Corrientes 1234, CABA</p>
+                <p>Somos una empresa de distribución comprometida con la creación de valor para nuestros clientes y socios. Excelencia, transparencia e innovación en cada paso.</p>
             </div>
             <div class="footer-section">
                 <h3>Servicios</h3>
-                <a href="#servicios">Logística</a>
-                <a href="#productos">Catálogo</a>
-                <a href="#cobertura">Cobertura</a>
-                <a href="#">Asesoría</a>
+                <p><a href="#servicios">Distribución Nacional</a></p>
+                <p><a href="#servicios">Logística Integral</a></p>
+                <p><a href="#servicios">Asesoramiento Comercial</a></p>
+                <p><a href="#servicios">Soluciones Personalizadas</a></p>
             </div>
             <div class="footer-section">
-                <h3>Empresa</h3>
-                <a href="#">Sobre Nosotros</a>
-                <a href="#casos">Casos de Éxito</a>
-                <a href="#">Trabaja con Nosotros</a>
-                <a href="#">Prensa</a>
+                <h3>Contacto</h3>
+                <p><i class="fas fa-phone"></i> +54 11 1234-5678</p>
+                <p><i class="fas fa-envelope"></i> info@albodistribuciones.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</p>
+                <p><i class="fas fa-clock"></i> Lun-Vie: 8:00-18:00</p>
             </div>
             <div class="footer-section">
-                <h3>Soporte</h3>
-                <a href="#">Centro de Ayuda</a>
-                <a href="#">Términos y Condiciones</a>
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Estado del Servicio</a>
+                <h3>Síguenos</h3>
+                <p>
+                    <a href="#" style="margin-right: 1rem;"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#" style="margin-right: 1rem;"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -831,190 +1141,862 @@
         </div>
     </footer>
 
-    <!-- Chat Widget -->
-    <div class="chat-widget">
-        <button class="chat-button" onclick="openChat()" title="Habla con nuestro asistente">
-            💬
-        </button>
-    </div>
-
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h3>Tu Carrito</h3>
-                <button class="close-cart" onclick="toggleCart()">×</button>
-            </div>
-            <div id="cartItems">
-                <p style="text-align: center; color: #64748b;">Tu carrito está vacío</p>
-            </div>
-            <div class="cart-total" id="cartTotal">
-                Total: $0
-            </div>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="checkout()">
-                Solicitar Cotización
-            </button>
-        </div>
-    </div>
-
     <script>
-        // Productos de muestra
+        // Sample product data
         const products = [
-            { id: 1, name: "Coca Cola 600ml", category: "bebidas", price: 450, emoji: "🥤" },
-            { id: 2, name: "Pepsi 1.5L", category: "bebidas", price: 820, emoji: "🥤" },
-            { id: 3, name: "Agua Mineral 500ml", category: "bebidas", price: 280, emoji: "💧" },
-            { id: 4, name: "Jugo Naranja 1L", category: "bebidas", price: 650, emoji: "🍊" },
-            { id: 5, name: "Papas Fritas 150g", category: "snacks", price: 380, emoji: "🍟" },
-            { id: 6, name: "Galletitas Chocolate", category: "snacks", price: 320, emoji: "🍪" },
-            { id: 7, name: "Maní Salado 200g", category: "snacks", price: 290, emoji: "🥜" },
-            { id: 8, name: "Leche Entera 1L", category: "lacteos", price: 420, emoji: "🥛" },
-            { id: 9, name: "Yogurt Natural", category: "lacteos", price: 350, emoji: "🥛" },
-            { id: 10, name: "Detergente 750ml", category: "limpieza", price: 680, emoji: "🧴" },
-            { id: 11, name: "Papel Higiénico x6", category: "limpieza", price: 920, emoji: "🧻" },
-            { id: 12, name: "Cerveza Quilmes 1L", category: "bebidas", price: 850, emoji: "🍺" }
+            {
+                id: 1,
+                name: "Coca Cola 500ml",
+                price: 850,
+                category: "bebidas",
+                icon: "fas fa-wine-bottle"
+            },
+            {
+                id: 2,
+                name: "Agua Mineral 1.5L",
+                price: 650,
+                category: "bebidas",
+                icon: "fas fa-tint"
+            },
+            {
+                id: 3,
+                name: "Cerveza Artesanal",
+                price: 1200,
+                category: "bebidas",
+                icon: "fas fa-beer"
+            },
+            {
+                id: 4,
+                name: "Arroz Integral 1kg",
+                price: 890,
+                category: "alimentos",
+                icon: "fas fa-seedling"
+            },
+            {
+                id: 5,
+                name: "Aceite de Oliva",
+                price: 1500,
+                category: "alimentos",
+                icon: "fas fa-leaf"
+            },
+            {
+                id: 6,
+                name: "Pasta Premium",
+                price: 750,
+                category: "alimentos",
+                icon: "fas fa-utensils"
+            },
+            {
+                id: 7,
+                name: "Detergente Líquido",
+                price: 980,
+                category: "limpieza",
+                icon: "fas fa-spray-can"
+            },
+            {
+                id: 8,
+                name: "Jabón Antibacterial",
+                price: 450,
+                category: "limpieza",
+                icon: "fas fa-pump-soap"
+            },
+            {
+                id: 9,
+                name: "Shampoo Natural",
+                price: 1200,
+                category: "cuidado",
+                icon: "fas fa-bottle-water"
+            },
+            {
+                id: 10,
+                name: "Crema Hidratante",
+                price: 850,
+                category: "cuidado",
+                icon: "fas fa-hand-holding-water"
+            }
         ];
 
         let cart = [];
-        let currentFilter = 'all';
+        let filteredProducts = products;
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
             } else {
-                navbar.classList.remove('scrolled');
+                header.classList.remove('scrolled');
             }
         });
 
-        // Render products
-        function renderProducts(filter = 'all') {
-            const grid = document.getElementById('productsGrid');
-            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
-            
-            grid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card" data-category="${product.category}">
-                    <div class="product-image">${product.emoji}</div>
+        // Load products
+        function loadProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <i class="${product.icon}"></i>
+                    </div>
                     <div class="product-info">
-                        <div class="product-category">${product.category}</div>
-                        <h3 class="product-name">${product.name}</h3>
-                        <div class="product-price">$${product.price}</div>
+                        <h4>${product.name}</h4>
+                        <div class="product-price">$${product.price.toLocaleString()}</div>
                         <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            Agregar al Carrito
+                            <i class="fas fa-cart-plus"></i> Agregar al Carrito
                         </button>
                     </div>
-                </div>
-            `).join('');
+                `;
+                productsGrid.appendChild(productCard);
+            });
         }
 
         // Filter products
+        function filterProducts(category) {
+            if (category === 'all') {
+                filteredProducts = products;
+            } else {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            loadProducts();
+
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Add event listeners to filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                const filter = e.target.dataset.filter;
-                currentFilter = filter;
-                renderProducts(filter);
+                filterProducts(e.target.getAttribute('data-filter'));
             });
         });
 
-        // Add to cart
+        // Cart functionality
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existingItem = cart.find(item => item.id === productId);
-            
+
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push({ ...product, quantity: 1 });
+                cart.push({...product, quantity: 1});
             }
-            
+
             updateCartUI();
-            
-            // Show feedback
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = '¡Agregado!';
-            btn.style.background = '#16a085';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-            }, 1000);
+            showNotification('Producto agregado al carrito');
         }
 
-        // Update cart UI
-        function updateCartUI() {
-            const cartCount = document.getElementById('cartCount');
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            cartCount.textContent = totalItems;
-            cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p style="text-align: center; color: #64748b;">Tu carrito está vacío</p>';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <div>
-                            <strong>${item.name}</strong><br>
-                            <small>$${item.price} x ${item.quantity}</small>
-                        </div>
-                        <div>
-                            <button onclick="removeFromCart(${item.id})" style="background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-                                Quitar
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            cartTotal.textContent = `Total: $${totalPrice.toLocaleString()}`;
-        }
-
-        // Remove from cart
         function removeFromCart(productId) {
             cart = cart.filter(item => item.id !== productId);
             updateCartUI();
         }
 
-        // Toggle cart modal
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('active');
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: var(--text-light);">Tu carrito está vacío</p>';
+                cartTotal.style.display = 'none';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>Cantidad: ${item.quantity}</small>
+                        </div>
+                        <div>
+                            <strong>$${(item.price * item.quantity).toLocaleString()}</strong>
+                            <button onclick="removeFromCart(${item.id})" style="margin-left: 1rem; color: red; background: none; border: none; cursor: pointer;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                cartTotal.innerHTML = `Total: $${totalPrice.toLocaleString()}`;
+                cartTotal.style.display = 'block';
+            }
         }
 
-        // Checkout
-        function checkout() {
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function proceedToCheckout() {
             if (cart.length === 0) {
-                alert('Tu carrito está vacío');
+                showNotification('Tu carrito está vacío');
                 return;
             }
             
-            const cartSummary = cart.map(item => `${item.name} x${item.quantity} - $${item.price * item.quantity}`).join('\n');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
-            const message = `¡Hola! Me gustaría solicitar una cotización para:\n\n${cartSummary}\n\nTotal estimado: $${total.toLocaleString()}\n\n¿Podrían enviarme más información?`;
-            
-            // Aquí podrías integrar con WhatsApp, email o tu chatbot
-            alert('¡Perfecto! Te contactaremos pronto con tu cotización.\n\n' + message);
-            
-            // Limpiar carrito
-            cart = [];
-            updateCartUI();
+            // Close cart modal
             toggleCart();
+            
+            // Open chatbot with checkout context
+            if (!chatbotOpen) {
+                toggleChatbot();
+            }
+            
+            // Send checkout message to chatbot
+            setTimeout(() => {
+                const checkoutMessage = `Hola, me gustaría procesar mi pedido del carrito de compras. 
+
+🛒 Mi carrito contiene:
+${cart.map(item => `• ${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toLocaleString()}`).join('\n')}
+
+💰 Total: ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
+
+¿Puedes ayudarme a completar mi pedido?`;
+                
+                addMessageToChat(checkoutMessage, 'user');
+                
+                // Send to n8n if configured
+                if (CHATBOT_CONFIG.webhookUrl !== 'https://your-n8n-instance.com/webhook/chatbot') {
+                    sendMessage();
+                }
+            }, 500);
         }
 
-        // Open chat
-        function openChat() {
-            // Aquí integrarías con tu chatbot de n8n
-            alert('¡Hola! Soy el asistente de Albo Distribuciones.\n\n¿En qué puedo ayudarte hoy?\n\n(Próximamente: Chat integrado con n8n)');
+        function showNotification(message) {
+            // Simple notification system
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: var(--success);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                z-index: 3000;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
-        // Smooth scrolling
+        // ===== CHATBOT INTEGRATION WITH N8N =====
+        
+        // Configuration - Tu n8n webhook URL real
+        const CHATBOT_CONFIG = {
+            webhookUrl: 'https://primary-production-e953.up.railway.app/webhook/623c24dc-5afb-47c2-b32e-054e1cd872cdfchat',
+            apiKey: '', // No necesitas API key según tu configuración
+            sessionId: generateSessionId(),
+            timeout: 10000 // 10 seconds timeout
+        };
+
+        let chatbotOpen = false;
+        let messageHistory = [];
+
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // Toggle chatbot visibility
+        function toggleChatbot() {
+            const widget = document.getElementById('chatbotWidget');
+            const badge = document.getElementById('chatBadge');
+            
+            chatbotOpen = !chatbotOpen;
+            
+            if (chatbotOpen) {
+                widget.classList.add('active');
+                badge.style.display = 'none';
+                
+                // Auto-focus input when opened
+                setTimeout(() => {
+                    document.getElementById('chatInput').focus();
+                }, 300);
+            } else {
+                widget.classList.remove('active');
+            }
+        }
+
+        // Send message to n8n
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessageToChat(message, 'user');
+            
+            // Clear input and disable send button
+            input.value = '';
+            toggleSendButton(false);
+            showTypingIndicator(true);
+            
+            try {
+                // Prepare context data optimized for your n8n workflow
+                const contextData = {
+                    // Mensaje principal
+                    message: message,
+                    text: message, // Algunos workflows usan 'text' en lugar de 'message'
+                    
+                    // Información de sesión
+                    sessionId: CHATBOT_CONFIG.sessionId,
+                    timestamp: new Date().toISOString(),
+                    source: 'website',
+                    
+                    // Contexto del usuario y carrito
+                    userContext: {
+                        currentPage: window.location.pathname,
+                        pageUrl: window.location.href,
+                        cart: cart,
+                        cartTotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                        cartItems: cart.length,
+                        totalProductsInCart: cart.reduce((sum, item) => sum + item.quantity, 0),
+                        userAgent: navigator.userAgent,
+                        language: 'es'
+                    },
+                    
+                    // Productos disponibles para que tu IA pueda referenciarlos
+                    availableProducts: products,
+                    
+                    // Historial de conversación para contexto
+                    conversationHistory: messageHistory.slice(-5), // Últimos 5 mensajes
+                    
+                    // Información adicional que puede ser útil para tu workflow
+                    chatInfo: {
+                        platform: 'website',
+                        integration: 'albo-distribuciones',
+                        version: '1.0'
+                    }
+                };
+
+                console.log('Enviando a n8n:', contextData); // Para debugging
+
+                // Send to n8n
+                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        ...(CHATBOT_CONFIG.apiKey && { 'Authorization': `Bearer ${CHATBOT_CONFIG.apiKey}` })
+                    },
+                    body: JSON.stringify(contextData)
+                });
+
+                console.log('Respuesta HTTP:', response.status); // Para debugging
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                // Try to parse JSON response
+                let botResponse;
+                const contentType = response.headers.get('content-type');
+                
+                if (contentType && contentType.includes('application/json')) {
+                    botResponse = await response.json();
+                } else {
+                    // If it's plain text
+                    botResponse = await response.text();
+                }
+
+                console.log('Respuesta del bot:', botResponse); // Para debugging
+                
+                // Handle bot response
+                handleBotResponse(botResponse);
+                
+            } catch (error) {
+                console.error('Chatbot error:', error);
+                
+                // Fallback response
+                const fallbackMessage = `Lo siento, estoy experimentando dificultades técnicas. 
+
+Por favor contactanos directamente:
+📞 +54 11 1234-5678
+📧 info@albodistribuciones.com
+
+O intenta nuevamente en unos momentos. ¡Estaremos encantados de ayudarte!`;
+                
+                addMessageToChat(fallbackMessage, 'bot');
+                updateChatStatus('Reconectando...');
+                
+                // Reset status after 3 seconds
+                setTimeout(() => {
+                    updateChatStatus('En línea');
+                    // Try to reconnect
+                    testN8nConnection();
+                }, 3000);
+            }
+            
+            showTypingIndicator(false);
+            toggleSendButton(true);
+        }
+
+        // Handle bot response from n8n - Updated for your workflow
+        function handleBotResponse(response) {
+            let message = '';
+            let actions = [];
+            
+            console.log('Procesando respuesta:', response); // Para debugging
+            
+            // Handle different response formats from your n8n workflow
+            if (typeof response === 'string') {
+                message = response;
+            } else if (response && typeof response === 'object') {
+                // Try different common property names
+                message = response.message || 
+                         response.text || 
+                         response.response || 
+                         response.output ||
+                         response.result ||
+                         'Recibí tu mensaje. ¿En qué más puedo ayudarte?';
+                         
+                actions = response.actions || [];
+                
+                // Handle special responses from your workflow
+                if (response.price || response.precio) {
+                    message += `\n\n💰 Precio: ${(response.price || response.precio).toLocaleString()}`;
+                }
+                
+                if (response.products || response.productos) {
+                    const products = response.products || response.productos;
+                    if (Array.isArray(products) && products.length > 0) {
+                        message += '\n\n📦 Productos encontrados:\n';
+                        message += products.map(p => `• ${p.name || p.nombre} - ${(p.price || p.precio).toLocaleString()}`).join('\n');
+                    }
+                }
+                
+                if (response.order_created || response.pedido_creado) {
+                    message += '\n\n✅ ¡Pedido creado exitosamente!';
+                    actions.push({ type: 'open_cart' });
+                }
+            } else {
+                message = 'Recibí tu mensaje. ¿En qué más puedo ayudarte?';
+            }
+            
+            // Add message to chat
+            addMessageToChat(message, 'bot');
+            
+            // Handle special actions
+            if (actions.length > 0) {
+                handleBotActions(actions);
+            }
+        }
+
+        // Handle special actions from bot
+        function handleBotActions(actions) {
+            actions.forEach(action => {
+                switch (action.type) {
+                    case 'add_to_cart':
+                        if (action.productId) {
+                            addToCart(action.productId);
+                        }
+                        break;
+                    case 'show_products':
+                        if (action.category) {
+                            filterProducts(action.category);
+                            scrollToElement('#productos');
+                        }
+                        break;
+                    case 'open_cart':
+                        toggleCart();
+                        break;
+                    case 'redirect':
+                        if (action.url) {
+                            window.open(action.url, '_blank');
+                        }
+                        break;
+                }
+            });
+        }
+
+        // Add message to chat display
+        function addMessageToChat(message, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.className = `chat-message ${sender}`;
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-AR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            messageElement.innerHTML = `
+                <div class="message-content">
+                    ${message.replace(/\n/g, '<br>')}
+                    <div class="message-time">${timeString}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageElement);
+            
+            // Auto-scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Add to message history
+            messageHistory.push({
+                message: message,
+                sender: sender,
+                timestamp: now.toISOString()
+            });
+            
+            // Keep only last 10 messages in history for context
+            if (messageHistory.length > 10) {
+                messageHistory = messageHistory.slice(-10);
+            }
+        }
+
+        // Show/hide typing indicator
+        function showTypingIndicator(show) {
+            const indicator = document.getElementById('typingIndicator');
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            indicator.style.display = show ? 'block' : 'none';
+            
+            if (show) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+
+        // Toggle send button state
+        function toggleSendButton(enabled) {
+            const sendButton = document.getElementById('chatSend');
+            sendButton.disabled = !enabled;
+        }
+
+        // Update chat status
+        function updateChatStatus(status) {
+            document.getElementById('chatStatus').textContent = status;
+        }
+
+        // Handle input events
+        function setupChatInput() {
+            const input = document.getElementById('chatInput');
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            input.addEventListener('input', function() {
+                // Auto-resize textarea
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+            });
+        }
+
+        // Quick action functions for common queries
+        function quickAction(action, data = {}) {
+            const actions = {
+                showCart: () => {
+                    toggleCart();
+                    const message = cart.length > 0 
+                        ? `Tienes ${cart.length} productos en tu carrito. ¿Te ayudo con algo más?`
+                        : 'Tu carrito está vacío. ¿Te muestro nuestros productos?';
+                    addMessageToChat(message, 'bot');
+                },
+                showProducts: () => {
+                    scrollToElement('#productos');
+                    addMessageToChat('Aquí tienes nuestro catálogo de productos. ¿Te interesa alguna categoría en particular?', 'bot');
+                },
+                contactInfo: () => {
+                    const message = `Puedes contactarnos por:
+                    
+📞 Teléfono: +54 11 1234-5678
+📧 Email: info@albodistribuciones.com
+📍 Ubicación: Buenos Aires, Argentina
+🕒 Horario: Lun-Vie 8:00-18:00`;
+                    addMessageToChat(message, 'bot');
+                }
+            };
+            
+            if (actions[action]) {
+                actions[action]();
+            }
+        }
+
+        // Scroll to element helper
+        function scrollToElement(selector) {
+            const element = document.querySelector(selector);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialize chatbot on page load
+        function initializeChatbot() {
+            setupChatInput();
+            
+            // Show notification badge initially
+            setTimeout(() => {
+                const badge = document.getElementById('chatBadge');
+                if (badge && !chatbotOpen) {
+                    badge.style.display = 'flex';
+                }
+            }, 3000);
+            
+            // Test connection to n8n (optional)
+            testN8nConnection();
+        }
+
+        // Test n8n connection - Updated for your configuration
+        async function testN8nConnection() {
+            try {
+                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        message: 'test conexión',
+                        text: 'test conexión',
+                        sessionId: CHATBOT_CONFIG.sessionId,
+                        source: 'website',
+                        test: true
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('✅ Conexión con n8n exitosa');
+                    updateChatStatus('En línea');
+                    
+                    // Optional: Add a small indicator that connection is working
+                    const badge = document.getElementById('chatBadge');
+                    if (badge) {
+                        badge.style.display = 'flex';
+                        badge.textContent = '●';
+                        badge.style.background = '#10b981'; // Green color
+                        badge.title = 'Chatbot conectado';
+                    }
+                } else {
+                    console.warn('⚠️ Test de conexión falló:', response.status);
+                    updateChatStatus('Conectando...');
+                }
+            } catch (error) {
+                console.warn('⚠️ No se pudo conectar al chatbot:', error.message);
+                updateChatStatus('Modo offline');
+                
+                // Show offline indicator
+                const badge = document.getElementById('chatBadge');
+                if (badge) {
+                    badge.style.display = 'flex';
+                    badge.textContent = '!';
+                    badge.style.background = '#f59e0b'; // Orange color
+                    badge.title = 'Chatbot en modo offline';
+                }
+            }
+        }
+
+        // Quick actions optimized for your workflow
+        function quickAction(action, data = {}) {
+            const actions = {
+                showCart: () => {
+                    toggleCart();
+                    if (cart.length > 0) {
+                        const message = `Tienes ${cart.length} productos en tu carrito por un total de ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}. ¿Te ayudo a procesar el pedido?`;
+                        addMessageToChat(message, 'bot');
+                        
+                        // Send cart info to n8n for processing
+                        setTimeout(() => {
+                            sendCartInfoToBot();
+                        }, 1000);
+                    } else {
+                        addMessageToChat('Tu carrito está vacío. ¿Te muestro nuestros productos más populares?', 'bot');
+                    }
+                },
+                showProducts: () => {
+                    scrollToElement('#productos');
+                    addMessageToChat('Aquí tienes nuestro catálogo completo. También puedo ayudarte a encontrar productos específicos. ¿Qué tipo de producto buscas?', 'bot');
+                },
+                contactInfo: () => {
+                    const message = `📞 Información de contacto:
+
+• Teléfono: +54 11 1234-5678  
+• Email: info@albodistribuciones.com
+• Ubicación: Buenos Aires, Argentina
+• Horario: Lun-Vie 8:00-18:00
+
+¿Necesitas que un asesor te contacte directamente?`;
+                    addMessageToChat(message, 'bot');
+                },
+                checkPrices: () => {
+                    addMessageToChat('Puedo consultar precios actualizados de cualquier producto. Solo menciona qué producto te interesa y te doy el precio al instante.', 'bot');
+                },
+                createOrder: () => {
+                    if (cart.length > 0) {
+                        addMessageToChat('¡Perfecto! Voy a ayudarte a crear tu pedido. Necesito algunos datos para procesar tu orden.', 'bot');
+                        sendCartInfoToBot();
+                    } else {
+                        addMessageToChat('Para crear un pedido necesitas productos en tu carrito. ¿Te ayudo a seleccionar productos?', 'bot');
+                    }
+                }
+            };
+            
+            if (actions[action]) {
+                actions[action]();
+            }
+        }
+
+        // Send cart information to your n8n workflow for processing
+        async function sendCartInfoToBot() {
+            if (cart.length === 0) return;
+            
+            try {
+                const cartData = {
+                    message: 'consultar carrito de compras',
+                    text: 'consultar carrito de compras',
+                    sessionId: CHATBOT_CONFIG.sessionId,
+                    source: 'website',
+                    action: 'cart_consultation',
+                    
+                    cartDetails: {
+                        items: cart.map(item => ({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            quantity: item.quantity,
+                            subtotal: item.price * item.quantity,
+                            category: item.category
+                        })),
+                        totalItems: cart.reduce((sum, item) => sum + item.quantity, 0),
+                        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                        currency: 'ARS'
+                    }
+                };
+
+                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(cartData)
+                });
+
+                if (response.ok) {
+                    const botResponse = await response.text();
+                    if (botResponse && botResponse.length > 0) {
+                        handleBotResponse(botResponse);
+                    }
+                }
+            } catch (error) {
+                console.error('Error sending cart info:', error);
+            }
+        }
+
+        // Enhanced proceedToCheckout function
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Tu carrito está vacío');
+                return;
+            }
+            
+            // Close cart modal
+            toggleCart();
+            
+            // Open chatbot with checkout context
+            if (!chatbotOpen) {
+                toggleChatbot();
+            }
+            
+            // Send checkout request to your n8n workflow
+            setTimeout(() => {
+                const checkoutMessage = `crear pedido para los siguientes productos:
+
+${cart.map(item => `• ${item.name} x${item.quantity} - ${(item.price * item.quantity).toLocaleString()}`).join('\n')}
+
+Total: ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
+
+Por favor procesa este pedido.`;
+                
+                // Add to chat display
+                addMessageToChat(checkoutMessage, 'user');
+                
+                // Send structured data to n8n for order processing
+                sendCheckoutToBot();
+                
+            }, 500);
+        }
+
+        // Send structured checkout data to n8n
+        async function sendCheckoutToBot() {
+            try {
+                const checkoutData = {
+                    message: 'crear nuevo pedido',
+                    text: 'crear nuevo pedido',
+                    sessionId: CHATBOT_CONFIG.sessionId,
+                    source: 'website',
+                    action: 'create_order',
+                    
+                    orderData: {
+                        items: cart.map(item => ({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            quantity: item.quantity,
+                            subtotal: item.price * item.quantity,
+                            category: item.category
+                        })),
+                        totalItems: cart.reduce((sum, item) => sum + item.quantity, 0),
+                        totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                        currency: 'ARS',
+                        timestamp: new Date().toISOString(),
+                        source: 'website'
+                    },
+                    
+                    customerData: {
+                        sessionId: CHATBOT_CONFIG.sessionId,
+                        platform: 'website',
+                        userAgent: navigator.userAgent
+                    }
+                };
+
+                showTypingIndicator(true);
+
+                const response = await fetch(CHATBOT_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(checkoutData)
+                });
+
+                showTypingIndicator(false);
+
+                if (response.ok) {
+                    const botResponse = await response.text();
+                    if (botResponse && botResponse.length > 0) {
+                        handleBotResponse(botResponse);
+                    } else {
+                        addMessageToChat('Recibí tu pedido. Un asesor se contactará contigo para confirmar los detalles de entrega y pago.', 'bot');
+                    }
+                } else {
+                    addMessageToChat('Hubo un problema al procesar tu pedido. Por favor contactanos directamente al +54 11 1234-5678', 'bot');
+                }
+            } catch (error) {
+                console.error('Error sending checkout data:', error);
+                showTypingIndicator(false);
+                addMessageToChat('Error al procesar pedido. Por favor intenta nuevamente o contactanos directamente.', 'bot');
+            }
+        }
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1029,34 +2011,46 @@
         });
 
         // Initialize
-        renderProducts();
-        updateCartUI();
-
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            initializeChatbot(); // Initialize chatbot functionality
+            
+            // Add animation to elements when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
             });
-        }, observerOptions);
 
-        // Observe elements for animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.service-card, .product-card, .story-card');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            document.querySelectorAll('.service-card, .product-card, .story-card').forEach(el => {
                 observer.observe(el);
             });
         });
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+
+        // Add CSS for slide-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
